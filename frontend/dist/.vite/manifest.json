@@ -1,0 +1,103 @@
+{
+  "src/assets/13569.jpg": {
+    "file": "assets/13569-r06TkJuT.jpg",
+    "src": "src/assets/13569.jpg"
+  },
+  "src/assets/headlight-4.jpg": {
+    "file": "assets/headlight-4-CNCAYfm1.jpg",
+    "src": "src/assets/headlight-4.jpg"
+  },
+  "src/assets/headlight-5.jpg": {
+    "file": "assets/headlight-5-DZM6Lt_H.jpg",
+    "src": "src/assets/headlight-5.jpg"
+  },
+  "src/assets/headlight-6.jpg": {
+    "file": "assets/headlight-6-DUpqbiX7.jpg",
+    "src": "src/assets/headlight-6.jpg"
+  },
+  "src/assets/headlight-7.jpg": {
+    "file": "assets/headlight-7-D6kgNYQN.jpg",
+    "src": "src/assets/headlight-7.jpg"
+  },
+  "src/assets/mycarmedics-logo-white.svg": {
+    "file": "assets/mycarmedics-logo-white-CEtxOAOh.svg",
+    "src": "src/assets/mycarmedics-logo-white.svg"
+  },
+  "src/assets/mycarmedics-logo.svg": {
+    "file": "assets/mycarmedics-logo-BM6i_mb9.svg",
+    "src": "src/assets/mycarmedics-logo.svg"
+  },
+  "src/assets/restoration1.jpg": {
+    "file": "assets/restoration1-D0h2pYTa.jpg",
+    "src": "src/assets/restoration1.jpg"
+  },
+  "src/assets/restoration10.jpg": {
+    "file": "assets/restoration10-CzjMev1Z.jpg",
+    "src": "src/assets/restoration10.jpg"
+  },
+  "src/assets/restoration2.jpg": {
+    "file": "assets/restoration2-D4sejAM3.jpg",
+    "src": "src/assets/restoration2.jpg"
+  },
+  "src/assets/restoration3.jpg": {
+    "file": "assets/restoration3-DQdfWMHl.jpg",
+    "src": "src/assets/restoration3.jpg"
+  },
+  "src/assets/restoration4.jpg": {
+    "file": "assets/restoration4-D8TdSq9w.jpg",
+    "src": "src/assets/restoration4.jpg"
+  },
+  "src/assets/restoration5.jpg": {
+    "file": "assets/restoration5-BTg4uvnS.jpg",
+    "src": "src/assets/restoration5.jpg"
+  },
+  "src/assets/restoration6.jpg": {
+    "file": "assets/restoration6-Dc0dpEwx.jpg",
+    "src": "src/assets/restoration6.jpg"
+  },
+  "src/assets/restoration7.jpg": {
+    "file": "assets/restoration7-Bnlsgsok.jpg",
+    "src": "src/assets/restoration7.jpg"
+  },
+  "src/assets/restoration8.jpg": {
+    "file": "assets/restoration8-CY4ews_W.jpg",
+    "src": "src/assets/restoration8.jpg"
+  },
+  "src/assets/restoration9.jpg": {
+    "file": "assets/restoration9-DtSZklJ8.jpg",
+    "src": "src/assets/restoration9.jpg"
+  },
+  "src/assets/stripe.png": {
+    "file": "assets/stripe-Cu2qcPPz.png",
+    "src": "src/assets/stripe.png"
+  },
+  "src/main.tsx": {
+    "file": "assets/main-B3Nvq8Pm.js",
+    "name": "main",
+    "src": "src/main.tsx",
+    "isEntry": true,
+    "css": [
+      "assets/main-u40k380S.css"
+    ],
+    "assets": [
+      "assets/restoration4-D8TdSq9w.jpg",
+      "assets/restoration1-D0h2pYTa.jpg",
+      "assets/restoration2-D4sejAM3.jpg",
+      "assets/restoration3-DQdfWMHl.jpg",
+      "assets/restoration5-BTg4uvnS.jpg",
+      "assets/restoration6-Dc0dpEwx.jpg",
+      "assets/restoration7-Bnlsgsok.jpg",
+      "assets/restoration8-CY4ews_W.jpg",
+      "assets/restoration9-DtSZklJ8.jpg",
+      "assets/restoration10-CzjMev1Z.jpg",
+      "assets/headlight-4-CNCAYfm1.jpg",
+      "assets/headlight-5-DZM6Lt_H.jpg",
+      "assets/headlight-6-DUpqbiX7.jpg",
+      "assets/headlight-7-D6kgNYQN.jpg",
+      "assets/mycarmedics-logo-BM6i_mb9.svg",
+      "assets/mycarmedics-logo-white-CEtxOAOh.svg",
+      "assets/stripe-Cu2qcPPz.png",
+      "assets/13569-r06TkJuT.jpg"
+    ]
+  }
+}
