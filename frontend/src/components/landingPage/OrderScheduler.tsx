@@ -214,7 +214,7 @@ const OrderScheduler = ({ selectedProvider, headlightsCount, onTimeSlotSelect, s
     if (!selectedDate || !selectedProvider) return;
     const formattedDate = selectedDate.toISOString().slice(0, 10);
     try {
-      const response = await axios.get(`https://mycarmedics.com:8080/user/availability`, {
+      const response = await axios.get(`https://carmadices-beta-11pk.vercel.app/user/availability`, {
         params: { providerId: selectedProvider, date: formattedDate, headlightsCount },
       });
       setAvailableSlots(response.data.availability);

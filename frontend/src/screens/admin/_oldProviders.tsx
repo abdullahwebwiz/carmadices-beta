@@ -25,7 +25,7 @@ const ProvidersPage = () => {
     useEffect(() => {
         const fetchProviders = async () => {
             try {
-                const { data } = await axios.get('https://www.mycarmedics.com:8080/user/providers', {
+                const { data } = await axios.get('https://www.carmadices-beta-11pk.vercel.app/user/providers', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                 });
                 if (data.status === 'SUCCESS') {
@@ -49,7 +49,7 @@ const ProvidersPage = () => {
         }
 
         try {
-            const response = await axios.delete(`https://www.mycarmedics.com:8080/admin/${providerId}/clear-time-slots`, {
+            const response = await axios.delete(`https://www.carmadices-beta-11pk.vercel.app/admin/${providerId}/clear-time-slots`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
             });
 

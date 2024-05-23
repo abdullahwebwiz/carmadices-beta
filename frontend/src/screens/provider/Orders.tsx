@@ -23,7 +23,7 @@ const OrdersPage = () => {
     const loadOrders = async () => {
         // Fetch orders again
         try {
-            const response = await axios.get('https://mycarmedics.com:8080/provider/assigned', {
+            const response = await axios.get('https://carmadices-beta-11pk.vercel.app/provider/assigned', {
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
             });
             console.log('Response:', response.data); // Log the entire response
@@ -126,7 +126,7 @@ const OrdersPage = () => {
     useEffect(() => {
         const fetchOrdersWithUser = async () => {
             try {
-                const response = await axios.get('https://mycarmedics.com:8080/provider/assigned', {
+                const response = await axios.get('https://carmadices-beta-11pk.vercel.app/provider/assigned', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                 });
                 console.log('Response:', response.data); // Log the entire response

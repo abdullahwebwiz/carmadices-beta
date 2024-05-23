@@ -14,7 +14,7 @@ const MapComponent = ({ setAddress, setCalculatedPrice }) => {
   // Function to calculate distance and price
   const calculateDistanceAndPrice = async (selectedAddress) => {
     try {
-      const response = await fetch(`https://mycarmedics.com:8080/calculate-distance?origin=${encodeURIComponent(officeAddress)}&destination=${encodeURIComponent(selectedAddress)}`);
+      const response = await fetch(`https://carmadices-beta-11pk.vercel.app/calculate-distance?origin=${encodeURIComponent(officeAddress)}&destination=${encodeURIComponent(selectedAddress)}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

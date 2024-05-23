@@ -23,7 +23,7 @@ const SingleOrderModal = ({ isOpen, onClose, order, placeholderImage }) => {
     // Function to show large image on click
     const handleShowLargeImage = (imageUrl) => {
     // Prepend the base URL to the imageUrl
-    const fullImageUrl = `https://mycarmedics.com:8080/${imageUrl}`;
+    const fullImageUrl = `https://carmadices-beta-11pk.vercel.app/${imageUrl}`;
     setLargeImageUrl(fullImageUrl); // Set largeImageUrl to the full image URL
     setShowLargeImage(true);
     };
@@ -87,7 +87,7 @@ const SingleOrderModal = ({ isOpen, onClose, order, placeholderImage }) => {
             <div key={`before-${index}`} className="relative">
                 <img
                     className="w-full rounded-lg border border-blue/30 cursor-pointer object-cover"
-                    src={beforeImage ? `https://mycarmedics.com:8080/${beforeImage}` : placeholderImage}
+                    src={beforeImage ? `https://carmadices-beta-11pk.vercel.app/${beforeImage}` : placeholderImage}
                     alt={`Before Service ${index + 1}`}
                     onClick={() => handleShowLargeImage(beforeImage)}
                 />
@@ -106,7 +106,7 @@ const SingleOrderModal = ({ isOpen, onClose, order, placeholderImage }) => {
             <div key={`after-${index}`} className="relative">
                 <img
                     className="w-full rounded-lg border border-blue/30 cursor-pointer object-cover"
-                    src={afterImage ? `https://mycarmedics.com:8080/${afterImage}` : placeholderImage}
+                    src={afterImage ? `https://carmadices-beta-11pk.vercel.app/${afterImage}` : placeholderImage}
                     alt={`After Service ${index + 1}`}
                     onClick={() => handleShowLargeImage(afterImage)}
                 />

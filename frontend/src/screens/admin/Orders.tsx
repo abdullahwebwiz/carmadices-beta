@@ -60,7 +60,7 @@ const OrdersPage = () => {
 
     const approveOrder = async (orderId) => {
         try {
-            const response = await axios.put(`https://mycarmedics.com:8080/admin/order/${orderId}/approve`, {
+            const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/admin/order/${orderId}/approve`, {
                 adminCheck: true
             }, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
@@ -88,7 +88,7 @@ const OrdersPage = () => {
 
     const undoApproveOrder = async (orderId) => {
         try {
-            const response = await axios.put(`https://mycarmedics.com:8080/admin/order/${orderId}/undo-approve`, {
+            const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/admin/order/${orderId}/undo-approve`, {
                 adminCheck: false
             }, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
@@ -117,7 +117,7 @@ const OrdersPage = () => {
     const handleChangeProviderForOrder = async (orderId, providerId) => {
         try {
             const accessToken = localStorage.getItem('userToken');
-            const response = await fetch(`https://mycarmedics.com:8080/user/order/${orderId}/change-provider`, {
+            const response = await fetch(`https://carmadices-beta-11pk.vercel.app/user/order/${orderId}/change-provider`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const OrdersPage = () => {
             const fetchOrders = async () => {
                 setLoading(true);
                 try {
-                    const response = await axios.get('https://mycarmedics.com:8080/admin/orders', {
+                    const response = await axios.get('https://carmadices-beta-11pk.vercel.app/admin/orders', {
                         headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                     });
                     setOrders(response.data.orders || []);

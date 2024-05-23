@@ -23,7 +23,7 @@ const ProvidersPage = () => {
     useEffect(() => {
         const fetchProviders = async () => {
             try {
-                const response = await axios.get('https://www.mycarmedics.com:8080/user/providers', {
+                const response = await axios.get('https://www.carmadices-beta-11pk.vercel.app/user/providers', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                 });
                 console.log('Response:', response.data);
@@ -58,7 +58,7 @@ const ProvidersPage = () => {
         try {
             const providersWithOrderCounts = await Promise.all(providers.map(async (provider) => {
                 try {
-                    const orderCountsResponse = await axios.get(`https://www.mycarmedics.com:8080/admin/order/count?providerId=${provider._id}`, {
+                    const orderCountsResponse = await axios.get(`https://www.carmadices-beta-11pk.vercel.app/admin/order/count?providerId=${provider._id}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                     });
 
@@ -134,7 +134,7 @@ const ProvidersPage = () => {
 
     const fetchOrders = async (providerId) => {
         try {
-            const response = await axios.get(`https://www.mycarmedics.com:8080/admin/orders?providerId=${providerId}`, {
+            const response = await axios.get(`https://www.carmadices-beta-11pk.vercel.app/admin/orders?providerId=${providerId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
             });
             console.log('Orders Response:', response.data);

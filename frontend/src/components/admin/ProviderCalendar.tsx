@@ -12,7 +12,7 @@ const ProviderCalendar = ({ provider }) => {
 
         const fetchTimeSlots = async () => {
             try {
-                const response = await axios.get(`https://mycarmedics.com:8080/user/availability`, {
+                const response = await axios.get(`https://carmadices-beta-11pk.vercel.app/user/availability`, {
                     params: {
                         providerId: provider._id,
                         date: selectedDate.toISOString().slice(0, 10) // Format date as 'YYYY-MM-DD'

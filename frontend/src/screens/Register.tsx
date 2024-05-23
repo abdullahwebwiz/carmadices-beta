@@ -21,7 +21,7 @@ const Register: React.FC = () => {
   });
   const [message, setMessage] = useState<string>("");
   const [formErrors, setFormErrors] = useState<Record<string, string>>({}); // State for form errors
-  const signupEndpoint = "https://mycarmedics.com:8080/user/signup";
+  const signupEndpoint = "https://carmadices-beta-11pk.vercel.app/user/signup";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

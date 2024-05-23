@@ -16,7 +16,7 @@ const CustomersPage = () => {
     useEffect(() => {
         const fetchCustomers = async () => {
             try {
-                const response = await axios.get('https://mycarmedics.com:8080/admin/fetch-users', {
+                const response = await axios.get('https://carmadices-beta-11pk.vercel.app/admin/fetch-users', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                 });
                 if (response.data.status === 'SUCCESS') {

@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/authContext';
 
 const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess, onUpdateStatus }) => {
     const { userToken } = useAuth();
-    const baseUrl = 'https://mycarmedics.com:8080/';
+    const baseUrl = 'https://carmadices-beta-11pk.vercel.app/';
 
     const [imagePairs, setImagePairs] = useState([]);
     const [isLoadingUpload, setIsLoadingUpload] = useState(false); // Loading state for upload button
@@ -31,7 +31,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
     const handleMarkAsCompleted = async () => {
         try {
             setIsLoadingMarkAsCompleted(true);
-            const response = await axios.put(`https://mycarmedics.com:8080/order/${order._id}/status`, { status: 'Completed' }, {
+            const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/order/${order._id}/status`, { status: 'Completed' }, {
                 headers: { Authorization: `Bearer ${userToken}` }
             });
             console.log('Order marked as completed:', response.data);
@@ -48,7 +48,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
     const handleUndoMarkAsCompleted = async () => {
         try {
             setIsLoadingMarkAsCompleted(true);
-            const response = await axios.put(`https://mycarmedics.com:8080/order/${order._id}/status`, { status: 'Pending' }, {
+            const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/order/${order._id}/status`, { status: 'Pending' }, {
                 headers: { Authorization: `Bearer ${userToken}` }
             });
             console.log('Order completion undone:', response.data);
@@ -66,7 +66,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
         setShowConfirmation(false);
         try {
             setIsLoading(true);
-            const response = await axios.put(`https://mycarmedics.com:8080/order/${order._id}/status`, { status: 'Completed' }, {
+            const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/order/${order._id}/status`, { status: 'Completed' }, {
                 headers: { Authorization: `Bearer ${userToken}` }
             });
             console.log('Order marked as completed:', response.data);
@@ -135,7 +135,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
 
         if (imagesChanged) {
             try {
-                const response = await axios.post(`https://mycarmedics.com:8080/order/${order._id}/images`, formData, {
+                const response = await axios.post(`https://carmadices-beta-11pk.vercel.app/order/${order._id}/images`, formData, {
                     headers: { Authorization: `Bearer ${userToken}` }
                 });
                 console.log('Images uploaded:', response.data);
@@ -165,7 +165,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
 
         setIsLoadingClean(true);
         try {
-            const response = await axios.post(`https://mycarmedics.com:8080/order/${order._id}/cleanImages`, null, {
+            const response = await axios.post(`https://carmadices-beta-11pk.vercel.app/order/${order._id}/cleanImages`, null, {
                 headers: { Authorization: `Bearer ${userToken}` }
             });
             console.log('Order images cleaned:', response.data);

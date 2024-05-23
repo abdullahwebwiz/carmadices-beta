@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 // Function to fetch available providers
 const fetchAvailableProviders = async (orderId) => {
     try {
-        const response = await fetch(`https://mycarmedics.com:8080/user/order/${orderId}/fetch-providers`, {
+        const response = await fetch(`https://carmadices-beta-11pk.vercel.app/user/order/${orderId}/fetch-providers`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
         });
         const data = await response.json();
@@ -59,7 +59,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUpdateOrderSta
             const accessToken = localStorage.getItem('userToken');
             const requestBody = { providerId: selectedProviderId }; // Create the request body
             console.log('Request Body:', requestBody); // Log the request body
-            const response = await fetch(`https://mycarmedics.com:8080/user/order/${order._id}/change-provider`, {
+            const response = await fetch(`https://carmadices-beta-11pk.vercel.app/user/order/${order._id}/change-provider`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUpdateOrderSta
     // Function to show large image on click
     const handleShowLargeImage = (imageUrl) => {
         // Prepend the base URL to the imageUrl
-        const fullImageUrl = `https://mycarmedics.com:8080/${imageUrl}`;
+        const fullImageUrl = `https://carmadices-beta-11pk.vercel.app/${imageUrl}`;
         setLargeImageUrl(fullImageUrl); // Set largeImageUrl to the full image URL
         setShowLargeImage(true);
     };
@@ -201,7 +201,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUpdateOrderSta
                                             <div key={`before-${index}`} className="relative">
                                                 <img
                                                     className="w-full rounded-lg border border-blue/30 cursor-pointer object-cover"
-                                                    src={beforeImage ? `https://mycarmedics.com:8080/${beforeImage}` : placeholderImage}
+                                                    src={beforeImage ? `https://carmadices-beta-11pk.vercel.app/${beforeImage}` : placeholderImage}
                                                     alt={`Before Service ${index + 1}`}
                                                     onClick={() => handleShowLargeImage(beforeImage)}
                                                 />
@@ -220,7 +220,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUpdateOrderSta
                                             <div key={`after-${index}`} className="relative">
                                                 <img
                                                     className="w-full rounded-lg border border-blue/30 cursor-pointer object-cover"
-                                                    src={afterImage ? `https://mycarmedics.com:8080/${afterImage}` : placeholderImage}
+                                                    src={afterImage ? `https://carmadices-beta-11pk.vercel.app/${afterImage}` : placeholderImage}
                                                     alt={`After Service ${index + 1}`}
                                                     onClick={() => handleShowLargeImage(afterImage)}
                                                 />

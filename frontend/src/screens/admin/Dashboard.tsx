@@ -73,7 +73,7 @@ const AdminDashboard = () => {
         }
 
         try {
-            const response = await axios.get('https://mycarmedics.com:8080/admin/dashboard-data', {
+            const response = await axios.get('https://carmadices-beta-11pk.vercel.app/admin/dashboard-data', {
                 params: { startDate, endDate },
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
             });

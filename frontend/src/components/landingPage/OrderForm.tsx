@@ -37,7 +37,7 @@ const customStyles = {
 
 ReactPixel.init('7582804658445660');
 
-const API_BASE_URL = 'https://www.mycarmedics.com:8080/';
+const API_BASE_URL = 'https://www.carmadices-beta-11pk.vercel.app/';
 
 const instance = axios.create({
     baseURL: API_BASE_URL,
@@ -135,7 +135,7 @@ const HeadlightRestorationForm = () => {
         if (!selectedDate || !selectedProvider) return;
         const formattedDate = selectedDate.toISOString().slice(0, 10);
         try {
-            const response = await axios.get(`https://mycarmedics.com:8080/user/availability`, {
+            const response = await axios.get(`https://carmadices-beta-11pk.vercel.app/user/availability`, {
                 params: { providerId: selectedProvider, date: formattedDate, headlightsCount },
             });
     
@@ -251,7 +251,7 @@ const HeadlightRestorationForm = () => {
             if (!formData.scheduledDate || !selectedProvider) return;
             const formattedDate = formData.scheduledDate.toISOString().slice(0, 10);
             try {
-                const response = await axios.get(`https://mycarmedics.com:8080/user/availability`, {
+                const response = await axios.get(`https://carmadices-beta-11pk.vercel.app/user/availability`, {
                     params: { providerId: selectedProvider, date: formattedDate, headlightsCount: formData.headlightsCount },
                 });
                 setAvailableSlots(response.data.availability);

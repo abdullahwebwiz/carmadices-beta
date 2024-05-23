@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const API_BASE_URL = 'https://mycarmedics.com:8080/';
+const API_BASE_URL = 'https://carmadices-beta-11pk.vercel.app/';
 
 // Define your axios instance
 const instance = axios.create({

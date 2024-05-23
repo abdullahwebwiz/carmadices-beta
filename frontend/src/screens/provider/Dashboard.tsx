@@ -111,7 +111,7 @@ const ProviderDashboard = () => {
     // Fetch orders function
     const fetchOrders = async () => {
         try {
-            const response = await fetch('https://mycarmedics.com:8080/provider/assigned', {
+            const response = await fetch('https://carmadices-beta-11pk.vercel.app/provider/assigned', {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('userToken')}`
                 }
