@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const User = require("../models/user.model.js"); // Import your User model
 const Order = require('../models/order.model.js'); // Adjust the path as per your project structure
 

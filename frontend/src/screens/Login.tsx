@@ -29,7 +29,6 @@ const LoginForm: React.FC = () => {
   if (user) {
     return <Navigate to="/profile" replace={true} />;
   }
-
   return (
     <>
       <div className="flex flex-col h-screen">

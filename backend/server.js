@@ -71,8 +71,10 @@ mongoose.connect(process.env.MONGO_URI)
         console.log("Connected to database!");
         // Create HTTPS server
         const httpsOptions = {
-          key: fs.readFileSync('/home/carmedic/htdocs/www.mycarmedics.com/carmedics/backend/cert/www.mycarmedics.com.key'),
-          cert: fs.readFileSync('/home/carmedic/htdocs/www.mycarmedics.com/carmedics/backend/cert/www.mycarmedics.com.crt'),
+          // key: fs.readFileSync('/carmedics/carmedics/backend/cert/www.mycarmedics.com.key'),
+          // cert: fs.readFileSync('/carmedics/carmedics/backend/cert/www.mycarmedics.com.crt'),
+          key: fs.readFileSync(path.join(__dirname, 'cert', 'www.mycarmedics.com.key')),
+          cert: fs.readFileSync(path.join(__dirname, 'cert', 'www.mycarmedics.com.crt')),
         };
         https.createServer(httpsOptions, app).listen(PORT, () => {
             console.log(`Server is running on PORT ${PORT} with HTTPS.`);

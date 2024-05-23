@@ -76,6 +76,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         }
     }, []); 
 
+    
     const isTokenExpired = (token: string): boolean => {
         try {
             const payloadBase64 = token.split('.')[1];
@@ -192,7 +193,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         localStorage.removeItem('userId');
         setOrders([]); // Clear the orders state
         navigate('/'); // Redirect to the home page
-
     };
 
     return (
