@@ -1,0 +1,21 @@
+.react-calendar {
+    width: 100%;
+    border-radius: 5px;
+    border-width: 1px;
+    border-color: rgb(210, 227, 233);
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.react-calendar__tile--active {
+    background-color: #0072DC !important;
+    border-radius: 5px;
+}
+
+.react-calendar button:enabled:hover {
+    border-radius: 5px;
+}
+
+.react-calendar__tile--now {
+    font-weight: 600;
+}
