@@ -5,7 +5,7 @@ import App from './App.tsx';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <React.StrictMode> 
       <LoadScript googleMapsApiKey={'AIzaSyBicqLbBwIcUWyaEOvfB8GXRbtHkTN-K-o'} libraries={["places"]} language="en">
         <App />
       </LoadScript>
