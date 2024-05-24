@@ -19,7 +19,6 @@ import ThankYouPage from './screens/ThankYouPage';
 
 const App: React.FC = () => {
   return (
-    // <h1>Level sab ke nikle ge. Per nilke ge us ke jo khara rahe ga hamare sath</h1>
     <Router>
       <AuthProvider>
         <Routes>

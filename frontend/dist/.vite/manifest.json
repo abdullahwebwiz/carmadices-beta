@@ -20,11 +20,11 @@
     "src": "src/assets/headlight-7.jpg"
   },
   "src/assets/mycarmedics-logo-white.svg": {
-    "file": "assets/mycarmedics-logo-white-CEtxOAOh.svg",
+    "file": "assets/mycarmedics-logo-white-ClnAJtXd.svg",
     "src": "src/assets/mycarmedics-logo-white.svg"
   },
   "src/assets/mycarmedics-logo.svg": {
-    "file": "assets/mycarmedics-logo-BM6i_mb9.svg",
+    "file": "assets/mycarmedics-logo-DeeyH_J5.svg",
     "src": "src/assets/mycarmedics-logo.svg"
   },
   "src/assets/restoration1.jpg": {
@@ -72,12 +72,12 @@
     "src": "src/assets/stripe.png"
   },
   "src/main.tsx": {
-    "file": "assets/main-B3Nvq8Pm.js",
+    "file": "assets/main-B1n0bcnP.js",
     "name": "main",
     "src": "src/main.tsx",
     "isEntry": true,
     "css": [
-      "assets/main-u40k380S.css"
+      "assets/main-Bf_ExjOL.css"
     ],
     "assets": [
       "assets/restoration4-D8TdSq9w.jpg",
@@ -94,8 +94,8 @@
       "assets/headlight-5-DZM6Lt_H.jpg",
       "assets/headlight-6-DUpqbiX7.jpg",
       "assets/headlight-7-D6kgNYQN.jpg",
-      "assets/mycarmedics-logo-BM6i_mb9.svg",
-      "assets/mycarmedics-logo-white-CEtxOAOh.svg",
+      "assets/mycarmedics-logo-DeeyH_J5.svg",
+      "assets/mycarmedics-logo-white-ClnAJtXd.svg",
       "assets/stripe-Cu2qcPPz.png",
       "assets/13569-r06TkJuT.jpg"
     ]

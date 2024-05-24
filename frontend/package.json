@@ -4,14 +4,12 @@
   "version": "1.0.0",
   "main": "src/main.tsx",
   "type": "module",
-  "files": ["dist"],
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "start": "vite"
   },
-  "vite": "vite.config.js",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
