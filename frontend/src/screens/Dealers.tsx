@@ -1,10 +1,12 @@
 import React from 'react';
 import HeaderMenu from '../components/HeaderMenu';
 import Footer from '../components/Footer';
+// @ts-ignore
 import Photo1 from '../assets/13569.jpg';
 import ContentContainer from '../components/landingPage/ContentContainer';
+// @ts-ignore
 import Star from '../assets/star.svg';
-import CheckMark from '../assets/checkmark.svg';
+// import CheckMark from '../assets/checkmark.svg';
 
 const DealersPage: React.FC = () => {
   return (

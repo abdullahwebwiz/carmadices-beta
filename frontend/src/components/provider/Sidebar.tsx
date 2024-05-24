@@ -1,12 +1,13 @@
-import React from 'react';
+// import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faXmark, faList, faUserGroup, faUserGear, faMoneyBill, faDashboard } from '@fortawesome/free-solid-svg-icons';
+// @ts-ignore:
 import logo from '../../assets/mycarmedics-logo-white.svg';
 import { useAuth } from '../../contexts/authContext';
 
-const ProviderSidebar = ({ logout }) => {
-    const { user } = useAuth();
+const ProviderSidebar = ({ logout }:any) => {
+    const { user } :any= useAuth();
     const location = useLocation();
 
     return (

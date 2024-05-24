@@ -23,7 +23,7 @@ const ProvidersPage = () => {
     useEffect(() => {
         const fetchProviders = async () => {
             try {
-                const response = await axios.get('https://www.carmadices-beta-11pk.vercel.app/user/providers', {
+                const response = await axios.get('https://www.mycarmedics.com:8080/user/providers', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                 });
                 console.log('Response:', response.data);
@@ -35,7 +35,7 @@ const ProvidersPage = () => {
                 } else {
                     console.error('Failed to fetch providers:', response.data.error || 'Unknown error');
                 }
-            } catch (error) {
+            } catch (error : any) {
                 console.error('Failed to fetch providers:', error.response || error.message || error);
             } finally {
                 setLoading(false);
@@ -54,11 +54,11 @@ const ProvidersPage = () => {
         checkAdminStatus();
     }, [isAdmin, navigate]);
 
-    const fetchOrderCounts = async (providers) => {
+    const fetchOrderCounts = async (providers : any) => {
         try {
-            const providersWithOrderCounts = await Promise.all(providers.map(async (provider) => {
+            const providersWithOrderCounts = await Promise.all(providers.map(async (provider : any) => {
                 try {
-                    const orderCountsResponse = await axios.get(`https://www.carmadices-beta-11pk.vercel.app/admin/order/count?providerId=${provider._id}`, {
+                    const orderCountsResponse = await axios.get(`https://www.mycarmedics.com:8080/admin/order/count?providerId=${provider._id}`, {
                         headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                     });
 
@@ -83,7 +83,7 @@ const ProvidersPage = () => {
                             orderCounts: { completed: 0, pending: 0 }
                         };
                     }
-                } catch (error) {
+                } catch (error : any) {
                     console.error('Error fetching order counts for provider:', provider._id, error.response || error.message || error);
                     // Return the provider with default orderCounts
                     return {
@@ -95,21 +95,21 @@ const ProvidersPage = () => {
 
             console.log('Providers with Order Counts:', providersWithOrderCounts);
             return providersWithOrderCounts;
-        } catch (error) {
+        } catch (error : any) {
             console.error('Failed to fetch order counts:', error.response || error.message || error);
             // Return the original providers with default orderCounts
-            return providers.map(provider => ({
+            return providers.map((provider : any)=> ({
                 ...provider,
                 orderCounts: { completed: 0, pending: 0 }
             }));
         }
     };
 
-    const handleSearch = (event) => {
+    const handleSearch = (event : any) => {
         const searchTerm = event.target.value;
         setSearchTerm(searchTerm);
 
-        const filtered = providersWithOrders.filter((provider) =>
+        const filtered = providersWithOrders.filter((provider : any) =>
             (provider.name && provider.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (provider.email && provider.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (provider.phone && provider.phone.toLowerCase().includes(searchTerm.toLowerCase())) ||
@@ -118,7 +118,7 @@ const ProvidersPage = () => {
         setFilteredProviders(filtered);
     };
 
-    const openModal = async (provider) => {
+    const openModal = async (provider : any) => {
         console.log('Selected Provider:', provider);
         setSelectedProvider(provider);
         setIsModalOpen(true);
@@ -132,14 +132,14 @@ const ProvidersPage = () => {
         setIsModalOpen(false);
     };
 
-    const fetchOrders = async (providerId) => {
+    const fetchOrders = async (providerId : any) => {
         try {
-            const response = await axios.get(`https://www.carmadices-beta-11pk.vercel.app/admin/orders?providerId=${providerId}`, {
+            const response = await axios.get(`https://www.mycarmedics.com:8080/admin/orders?providerId=${providerId}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
             });
             console.log('Orders Response:', response.data);
             return response.data;
-        } catch (error) {
+        } catch (error : any) {
             console.error('Failed to fetch orders:', error.response || error.message || error);
             return [];
         }
@@ -187,7 +187,7 @@ const ProvidersPage = () => {
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {filteredProviders && filteredProviders.length > 0 ? (
-                                        filteredProviders.map((provider) => (
+                                        filteredProviders.map((provider : any) => (
                                             <tr key={provider._id} className="hover:bg-gray-100 cursor-pointer" onClick={() => openModal(provider)}>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center">
@@ -219,7 +219,7 @@ const ProvidersPage = () => {
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="7" className="px-6 py-4 text-center">No providers found.</td>
+                                            <td colSpan ="7" className="px-6 py-4 text-center">No providers found.</td>
                                         </tr>
                                     )}
                                 </tbody>

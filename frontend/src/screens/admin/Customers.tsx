@@ -45,11 +45,11 @@ const CustomersPage = () => {
         }
     }, [isAdmin, navigate]);
 
-    const handleSearch = (event) => {
+    const handleSearch = (event : any) => {
         const searchTerm = event.target.value;
         setSearchTerm(searchTerm);
 
-        const filtered = customers.filter((customer) =>
+        const filtered = customers.filter((customer : any) =>
             customer.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
             customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
             customer.phone.toLowerCase().includes(searchTerm.toLowerCase())
@@ -89,7 +89,7 @@ const CustomersPage = () => {
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {filteredCustomers && filteredCustomers.length > 0 ? (
-                                        filteredCustomers.map((customer) => (
+                                        filteredCustomers.map((customer : any) => (
                                             <tr key={customer._id} className="hover:bg-gray-100">
                                                 <td className="px-6 py-4 whitespace-nowrap">{customer.firstName}</td>
                                                 <td className="px-6 py-4 whitespace-nowrap">{customer.email}</td>

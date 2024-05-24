@@ -37,7 +37,7 @@ const Profile: React.FC = () => {
   // Log the contents of localStorage
 const logLocalStorage = () => {
   for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
+      const key : any = localStorage.key(i);
       const value = localStorage.getItem(key);
       console.log(`${key}: ${value}`);
   }
@@ -58,6 +58,7 @@ logLocalStorage();
         <div className="bg-blue/25 lg:px-20 px-8 flex-1">
           <div className="flex-grow lg:flex lg:flex-row gap-8 py-8 items-start justify-center">
             <div className="flex lg:w-1/4 mb-8">
+              {/* @ts-ignore */}
             <ProfileData profileData={user} />
             </div>
             <div className="bg-white p-4 rounded-xl flex-col lg:w-3/4 w-full">

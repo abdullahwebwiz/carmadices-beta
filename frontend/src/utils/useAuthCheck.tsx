@@ -11,7 +11,7 @@ const useAuthCheck = () => {
             try {
                 await axios.get('/auth/validate');
                 // If successful, do nothing or update state as necessary
-            } catch (error) {
+            } catch (error : any) {
                 if (error.response && error.response.status === 401) {
                     // If unauthorized, clear token and redirect
                     localStorage.removeItem('userToken');

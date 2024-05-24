@@ -117,7 +117,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         
     };
     
-    const updateProfileData = async (profileData: Partial<User>) => {
+    const updateProfileData = async (profileData:any) => {
         const token = localStorage.getItem('userToken');
         if (!token) return { success: false, message: 'No authentication token found.' };
 
@@ -178,7 +178,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
             } else {
                 throw new Error('Failed to fetch orders');
             }
-        } catch (error) {
+        } catch (error:any) {
             console.error('Error fetching orders:', error);
             setOrdersError(error.toString());
         } finally {

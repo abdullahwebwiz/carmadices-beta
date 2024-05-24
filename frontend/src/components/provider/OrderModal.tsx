@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../contexts/authContext';
 
-const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess, onUpdateStatus }) => {
+const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess, onUpdateStatus }:any) => {
     const { userToken } = useAuth();
     const baseUrl = 'https://carmadices-beta-11pk.vercel.app/';
 
-    const [imagePairs, setImagePairs] = useState([]);
+    const [imagePairs, setImagePairs]:any = useState([]);
     const [isLoadingUpload, setIsLoadingUpload] = useState(false); // Loading state for upload button
     const [isLoadingClean, setIsLoadingClean] = useState(false); // Loading state for clean button
     const [isLoadingMarkAsCompleted, setIsLoadingMarkAsCompleted] = useState(false); // Loading state for mark as completed button
@@ -17,7 +17,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
         if (order) {
             const { beforeImages, afterImages } = order;
             const numImages = Math.max(beforeImages.length, afterImages.length, 1); // Ensure at least one row is shown
-            const initialImagePairs = Array.from({ length: numImages }, (_, index) => ({
+            const initialImagePairs :any= Array.from({ length: numImages }, (_, index) => ({
                 beforeImage: beforeImages[index] ? `${baseUrl}${beforeImages[index]}` : null,
                 afterImage: afterImages[index] ? `${baseUrl}${afterImages[index]}` : null,
                 beforeFile: null,
@@ -65,6 +65,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
     const confirmMarkAsCompleted = async () => {
         setShowConfirmation(false);
         try {
+            // @ts-ignore
             setIsLoading(true);
             const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/order/${order._id}/status`, { status: 'Completed' }, {
                 headers: { Authorization: `Bearer ${userToken}` }
@@ -76,16 +77,17 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
             console.error('Error marking order as completed:', error);
             alert('Failed to mark order as completed. Please try again.');
         } finally {
+            // @ts-ignore
             setIsLoading(false);
         }
     };
 
 
 
-    const handleImageSelect = (index, type, event) => {
+    const handleImageSelect = (index:any, type:any, event:any) => {
         const file = event.target.files[0];
-        const updatedPairs = [...imagePairs];
-        const currentPair = updatedPairs[index];
+        const updatedPairs :any= [...imagePairs];
+        const currentPair :any= updatedPairs[index];
 
         if (type === 'before' && currentPair.beforeImage && currentPair.beforeFile && currentPair.beforeImage !== placeholderImage) {
             // If a before image already exists and it's not the placeholder image, replace it
@@ -108,7 +110,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
     };
 
     const handleUploadAllImages = async () => {
-        if (imagePairs.every(pair => !pair.beforeFile && !pair.afterFile)) {
+        if (imagePairs.every((pair:any) => !pair.beforeFile && !pair.afterFile)) {
             // No photos selected
             alert('No selected photos');
             return;
@@ -118,7 +120,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
         const formData = new FormData();
         let imagesChanged = false;
 
-        imagePairs.forEach((pair, index) => {
+        imagePairs.forEach((pair:any, index:any) => {
             // Check if the new image URLs are different from the original ones
             const beforeImageChanged = pair.beforeImage && pair.beforeImage !== `${baseUrl}${order.beforeImages[index]}`;
             const afterImageChanged = pair.afterImage && pair.afterImage !== `${baseUrl}${order.afterImages[index]}`;
@@ -180,7 +182,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
     };
 
 
-    const renderImageInput = (index, type) => (
+    const renderImageInput = (index:any, type:any) => (
         <div className="flex-col" key={`${type}-${index}`}>
             <p className="text-center text-sm font-bold mb-1">{type.charAt(0).toUpperCase() + type.slice(1)} Image {index + 1}</p>
             {isCompleted ? (
@@ -194,6 +196,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
                     className="rounded-lg border border-blue-300 cursor-pointer object-cover"
                     src={imagePairs[index][`${type}Image`] || placeholderImage}
                     alt={`${type} Image ${index + 1}`}
+                    // @ts-ignore
                     onClick={() => document.getElementById(`${type}ImageInput-${index}`).click()}
                 />
             )}
@@ -249,7 +252,7 @@ const OrderModal = ({ isOpen, onClose, order, placeholderImage, onUploadSuccess,
 
 
                         <br></br>
-                        {imagePairs.map((pair, index) => (
+                        {imagePairs.map((pair:any, index:any) => (
                             <div key={index} className="grid grid-cols-2 gap-4 mb-4">
                                 {['before', 'after'].map((type) => renderImageInput(index, type))}
                             </div>

@@ -1,8 +1,9 @@
 import React from 'react';
+//@ts-ignore
 import Photo1 from '../../assets/restoration4.jpg';
-import Photo2 from '../../assets/headlight-2.jpg';
-import Photo3 from '../../assets/headlight-3.jpg';
-import Trusted1 from '../../assets/sema.jpg';
+// import Photo2 from '../../assets/headlight-2.jpg';
+// import Photo3 from '../../assets/headlight-3.jpg';
+// import Trusted1 from '../../assets/sema.jpg';
 
 const HeroSection: React.FC = () => {
   return (

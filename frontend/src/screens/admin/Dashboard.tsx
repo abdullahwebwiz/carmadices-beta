@@ -35,7 +35,7 @@ const AdminDashboard = () => {
         checkAdminStatus();
     }, [user, navigate, timeRange]);
 
-    const fetchDashboardData = async (selectedTimeRange) => {
+    const fetchDashboardData = async (selectedTimeRange : any) => {
         setLoading(true);
 
         let startDate, endDate;
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
         }
     };
 
-    const handleTimeRangeChange = (selectedTimeRange) => {
+    const handleTimeRangeChange = (selectedTimeRange : any) => {
         setTimeRange(selectedTimeRange);
     };
 
@@ -158,20 +158,20 @@ const AdminDashboard = () => {
     };
 
         // Function to calculate dashboard data
-        const calculateDashboardData = (data) => {
+        const calculateDashboardData = (data : any) => {
             const { totalOrders, totalRevenue } = data;
     
             // Calculate Provider's Share
-            const providerPayout = (totalRevenue * 0.70).toFixed(2);
+            const providerPayout  : any= (totalRevenue * 0.70).toFixed(2);
     
             // Calculate Sales Tax (6.5% of total revenue)
-            const salesTaxRate = 0.065;
-            const salesTax = (totalRevenue * salesTaxRate).toFixed(2);
+            const salesTaxRate  : any= 0.065;
+            const salesTax  : any= (totalRevenue * salesTaxRate).toFixed(2);
     
             // Calculate Stripe Fees (2.9% of total revenue + $0.30 per order)
             const stripeFeeRate = 0.029;
             const stripeFeePerOrder = 0.30;
-            const stripeFees = ((totalRevenue * stripeFeeRate) + (totalOrders * stripeFeePerOrder)).toFixed(2);
+            const stripeFees  : any= ((totalRevenue * stripeFeeRate) + (totalOrders * stripeFeePerOrder)).toFixed(2);
     
             // Calculate Net Profit
             const netProfit = (totalRevenue - providerPayout - salesTax - stripeFees).toFixed(2);

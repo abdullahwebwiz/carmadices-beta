@@ -2,16 +2,16 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression'; // Import image compression library
 
-const OrderList = ({ orders, setOrders }) => {
-    const [formData, setFormData] = useState({});
-    const [imagePreviews, setImagePreviews] = useState({});
-    const fileInputRefs = useRef({});
+const OrderList = ({ orders, setOrders }:any) => {
+    const [formData, setFormData]:any = useState({});
+    const [imagePreviews, setImagePreviews] :any= useState({});
+    const fileInputRefs :any= useRef({});
     const serverBaseURL = 'https://www.carmadices-beta-11pk.vercel.app/';
     const placeholderImage = '/home/carmedic/htdocs/www.mycarmedics.com/carmedics/frontend/src/assets/300x300-placeholder.jpg';
     const [statusFilter, setStatusFilter] = useState('All'); // Filter state
 
         // Function to resize and compress images
-        const resizeAndCompressImage = async (file) => {
+        const resizeAndCompressImage = async (file:any) => {
             const options = {
                 maxSizeMB: 1, // Maximum size in MB
                 maxWidthOrHeight: 800, // Maximum width or height
@@ -26,11 +26,11 @@ const OrderList = ({ orders, setOrders }) => {
         };
 
             // Function to handle status filter change
-    const handleStatusFilterChange = (e) => {
+    const handleStatusFilterChange = (e:any) => {
         setStatusFilter(e.target.value);
     };
 
-    const formatDate = (dateString) => {
+    const formatDate = (dateString:any) => {
         const date = new Date(dateString);
         return new Intl.DateTimeFormat('en-US', {
             year: 'numeric', month: '2-digit', day: '2-digit',
@@ -38,18 +38,18 @@ const OrderList = ({ orders, setOrders }) => {
         }).format(date);
     };
 
-    const calculateProviderShare = (totalPrice) => {
+    const calculateProviderShare = (totalPrice:any) => {
         return (0.70 * totalPrice).toFixed(2);
     };
 
-    const updateOrderStatus = async (orderId, newStatus) => {
+    const updateOrderStatus = async (orderId:any, newStatus:any) => {
         if (window.confirm(`Are you sure you want to update status to: ${newStatus}?`)) {
             try {
                 const response = await axios.put(`${serverBaseURL}order/${orderId}/status`, { status: newStatus }, {
                     headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
                 });
                 if (response.status === 200) {
-                    setOrders(orders.map(order => 
+                    setOrders(orders.map((order:any) => 
                         order._id === orderId ? { ...order, status: newStatus } : order
                     ));
                     alert('Status updated successfully!');
@@ -63,7 +63,7 @@ const OrderList = ({ orders, setOrders }) => {
         }
     };
 
-    const handleFileChange = async (e, orderId, imageType) => {
+    const handleFileChange = async (e:any, orderId:any, imageType:any) => {
         const file = e.target.files[0];
         if (file) {
             // Resize and compress image before setting formData and imagePreviews
@@ -73,11 +73,11 @@ const OrderList = ({ orders, setOrders }) => {
         }
     };
 
-    const handleImageClick = (orderId, imageType) => {
+    const handleImageClick = (orderId:any, imageType:any) => {
         fileInputRefs.current[`${orderId}-${imageType}`].click();
     };
 
-    const uploadFiles = async (e) => {
+    const uploadFiles = async (e:any) => {
         e.preventDefault();
         const uploadFormData = new FormData();
         uploadFormData.append('beforeImage', formData.beforeImage);
@@ -96,7 +96,7 @@ const OrderList = ({ orders, setOrders }) => {
     };
 
         // Filter orders based on the selected status
-        const filteredOrders = orders.filter(order => {
+        const filteredOrders = orders.filter((order:any) => {
             if (statusFilter === 'All') {
                 return true;
             } else {
@@ -126,7 +126,7 @@ const OrderList = ({ orders, setOrders }) => {
                 </select>
             </div>
             <ul>
-            {filteredOrders.map(order => (
+            {filteredOrders.map((order:any) => (
                     <li key={order._id} className="bg-white border border-gray-300 rounded-xl p-4 mb-4">
                         <div className="flex lg:flex-row flex-col gap-4">
                         <div className="flex my-auto flex-col gap-2 p-4 border border-gray-200 rounded-xl">

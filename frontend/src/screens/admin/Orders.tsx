@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
 import AdminSidebar from '../../components/admin/Sidebar';
@@ -22,14 +22,14 @@ const OrdersPage = () => {
     const placeholderImage = '../src/assets/300x300-placeholder.jpg';
 
     // Function to handle search input changes
-    const handleSearch = (event) => {
+    const handleSearch = (event : any) => {
         setSearchTerm(event.target.value);
     };
 
     // Function to format date as MM/DD/YYYY hh:mm am/pm
-    const formatDate = (dateString) => {
+    const formatDate = (dateString : any) => {
         const date = new Date(dateString);
-        const options = {
+        const options : any = {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit',
@@ -48,7 +48,7 @@ const OrdersPage = () => {
     };
 
     // Modal control functions
-    const openModal = (order) => {
+    const openModal = (order : any) => {
         setSelectedOrder(order);
         setIsModalOpen(true);
     };
@@ -58,7 +58,7 @@ const OrdersPage = () => {
         setIsModalOpen(false);
     };
 
-    const approveOrder = async (orderId) => {
+    const approveOrder = async (orderId : any) => {
         try {
             const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/admin/order/${orderId}/approve`, {
                 adminCheck: true
@@ -68,14 +68,14 @@ const OrdersPage = () => {
             console.log('Order approved:', response.data);
     
             // Update local state to reflect the change
-            const updatedOrders = orders.map(order => {
+            const updatedOrders : any = orders.map((order : any) => {
                 if (order._id === orderId) {
                     return { ...order, adminCheck: true };
                 }
                 return order;
             });
             setOrders(updatedOrders);
-            setFilteredOrders(updatedOrders.filter(order => 
+            setFilteredOrders(updatedOrders.filter((order : any) => 
                 (statusFilter === 'All' ||
                 (statusFilter === 'Completed' && order.status === 'Completed' && order.adminCheck === false) ||
                 (statusFilter === 'Approved' && order.status === 'Completed' && order.adminCheck === true) ||
@@ -86,7 +86,7 @@ const OrdersPage = () => {
         }
     };
 
-    const undoApproveOrder = async (orderId) => {
+    const undoApproveOrder = async (orderId: any) => {
         try {
             const response = await axios.put(`https://carmadices-beta-11pk.vercel.app/admin/order/${orderId}/undo-approve`, {
                 adminCheck: false
@@ -96,14 +96,14 @@ const OrdersPage = () => {
             console.log('Order approval undone:', response.data);
     
             // Update local state to reflect the change
-            const updatedOrders = orders.map(order => {
+            const updatedOrders  : any= orders.map((order : any) => {
                 if (order._id === orderId) {
                     return { ...order, adminCheck: false };
                 }
                 return order;
             });
             setOrders(updatedOrders);
-            setFilteredOrders(updatedOrders.filter(order => 
+            setFilteredOrders(updatedOrders.filter((order : any) => 
                 (statusFilter === 'All' ||
                 (statusFilter === 'Completed' && order.status === 'Completed' && order.adminCheck === false) ||
                 (statusFilter === 'Approved' && order.status === 'Completed' && order.adminCheck === true) ||
@@ -114,7 +114,7 @@ const OrdersPage = () => {
         }
     };
 
-    const handleChangeProviderForOrder = async (orderId, providerId) => {
+    const handleChangeProviderForOrder = async (orderId : any, providerId : any) => {
         try {
             const accessToken = localStorage.getItem('userToken');
             const response = await fetch(`https://carmadices-beta-11pk.vercel.app/user/order/${orderId}/change-provider`, {
@@ -161,7 +161,7 @@ const OrdersPage = () => {
     
     // Filter orders based on search term and status filter
     useEffect(() => {
-            const filtered = orders.filter(order => {
+            const filtered = orders.filter((order : any) => {
                 const matchesStatus = (statusFilter === 'All' || 
                                       (statusFilter === 'Completed' && order.status === 'Completed' && order.adminCheck === false) ||
                                       (statusFilter === 'Approved' && order.status === 'Completed' && order.adminCheck === true) ||
@@ -179,7 +179,7 @@ const OrdersPage = () => {
     // Pagination button generation
     useEffect(() => {
             const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
-            const buttons = Array.from({ length: totalPages }, (_, index) => (
+            const buttons : any = Array.from({ length: totalPages }, (_, index) => (
                 <button key={index} onClick={() => setCurrentPage(index + 1)}
                         className={`px-3 py-1 mx-1 rounded-lg border ${currentPage === index + 1 ? 'bg-blue text-white' : 'bg-white text-black'} hover:bg-blue hover:text-white`}>
                     {index + 1}
@@ -221,7 +221,7 @@ const OrdersPage = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {getCurrentOrders().map(order => (
+                                    {getCurrentOrders().map((order : any) => (
                                         <tr key={order._id} className="hover:bg-blue/10" onClick={() => openModal(order)}>
                                             <td className="px-4 py-2 text-xs whitespace-nowrap hidden lg:table-cell">{order._id}</td>
                                             <td className="px-4 py-2 whitespace-nowrap">{formatDate(order.createdAt)}</td>

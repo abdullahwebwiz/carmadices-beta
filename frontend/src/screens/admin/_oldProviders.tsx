@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext';
 import AdminSidebar from '../../components/admin/Sidebar';
@@ -42,7 +42,7 @@ const ProvidersPage = () => {
     }, []);
 
     // Function to clear time slots for a provider
-    const handleClearTimeSlots = async (providerId) => {
+    const handleClearTimeSlots = async (providerId : any) => {
         const confirmClear = window.confirm('Are you sure you want to clear all time slots for this provider?');
         if (!confirmClear) {
             return; // If user cancels, do nothing
@@ -55,8 +55,8 @@ const ProvidersPage = () => {
 
             if (response.status === 200) {
                 // Update providers after clearing time slots
-                setProviders(prevProviders =>
-                    prevProviders.map(provider =>
+                setProviders((prevProviders:any) =>
+                    prevProviders.map((provider:any) =>
                         provider._id === providerId ? { ...provider, timeSlots: [] } : provider
                     )
                 );
@@ -76,7 +76,7 @@ const ProvidersPage = () => {
             <h1 className="p-8 lg:text-5xl text-4xl font-black bg-gray-800 text-white text-center lg:text-left">Providers</h1>
                 <div className="p-8">
                     <div className="grid lg:grid-cols-3 gap-8">
-                        {providers.map((provider) => (
+                        {providers.map((provider : any) => (
                             <div key={provider._id} className="bg-white p-4 rounded-lg shadow">
                                 <p className="font-bold">Name: {provider.name}</p>
                                 <p>Email: {provider.email}</p>

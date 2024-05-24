@@ -1,5 +1,5 @@
 // ThankYouPage.js
-import React from 'react';
+// import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import HeaderMenu from '../components/HeaderMenu';
 import Footer from '../components/Footer';

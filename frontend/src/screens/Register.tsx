@@ -3,7 +3,7 @@ import axios from "axios";
 import HeaderMenu from "../components/HeaderMenu";
 import Footer from "../components/Footer";
 import { validateInput } from "../utils/validation"; // Import the validation function
-import { Navigate } from "react-router-dom";
+// import { Navigate } from "react-router-dom";
 
 interface RegisterFormData {
   firstName: string;
@@ -36,7 +36,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     // Attempt to validate input
     try {
-      const errors = validateInput(
+      const errors : any = validateInput(
         formData.firstName,
         formData.email,
         formData.password,
@@ -66,7 +66,7 @@ const Register: React.FC = () => {
         // Handle cases where response or response.data is undefined
         console.error("Unexpected response:", response);
       }
-    } catch (error) {
+    } catch (error : any) {
       if (error.response && error.response.data) {
         setMessage(error.response.data.message);
       } else {

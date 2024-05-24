@@ -11,7 +11,7 @@ const PartnerPage: React.FC = () => {
         <p className="text-center font-semibold text-lg">You can become <strong className="text-blue">Car Medic</strong> today, and start your headlights restoration business.</p>
         <p className="text-center lg:w-1/3">We will create you an service provider account and will add you to our providers list. We will train you well and give you all needed materials and certifications.
             You will also get your own link that will led your customers to your schedule form. You will get up to 70% of revenue as a provision! How does that sound?
-        </p>
+        </p> 
         <button className="bg-blue px-8 py-4 rounded-full lg:mt-9 mt-1 text-white font-bold">Click here to apply</button>
         </div>
       <Footer />
