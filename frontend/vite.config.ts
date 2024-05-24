@@ -9,23 +9,10 @@ export default defineConfig({
       input: 'src/main.tsx',
     },
   },
-  server: {
-    port: 8080, // Specify the port
-  },
+  // server: {
+  //   port: 8080, // Specify the port
+  // },
   plugins: [react(), vercel()],
 });
 
-// export default defineConfig({
-//   plugins: [react(), vercel()],
-// });
 
-// export default defineConfig({
-//   build: {
-//     rollupOptions: {
-//       input: {
-//         main: resolve(__dirname, "index.html"),
-//       },
-//     },
-//   },
-//   plugins: [react(), vercel()],
-// });
