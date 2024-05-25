@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/authContext';
-import HeaderMenu from '../../components/HeaderMenu';
-import Footer from '../../components/Footer';
-import ProfileData from '../../components/user/ProfileData';
-import OrdersList from '../../components/user/OrdersList';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/authContext";
+import HeaderMenu from "../../components/HeaderMenu";
+import Footer from "../../components/Footer";
+import ProfileData from "../../components/user/ProfileData";
+import OrdersList from "../../components/user/OrdersList";
 
 const Profile: React.FC = () => {
   const { user, logout, fetchProfileData } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,31 +24,30 @@ const Profile: React.FC = () => {
           setLoading(false); // No user, no need to fetch data
         }
       } catch (error) {
-        console.error('Failed to fetch profile data:', error);
+        console.error("Failed to fetch profile data:", error);
         logout();
-        navigate('/login');
+        navigate("/login");
       }
     };
-  
+
     if (user) {
       fetchData();
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   }, []); // Empty dependency array ensures useEffect runs only once
 
   // Log the contents of localStorage
-const logLocalStorage = () => {
-  for (let i = 0; i < localStorage.length; i++) {
-      const key : any = localStorage.key(i);
+  const logLocalStorage = () => {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key: any = localStorage.key(i);
       const value = localStorage.getItem(key);
       console.log(`${key}: ${value}`);
-  }
-};
+    }
+  };
 
-// Call the function to log localStorage contents
-logLocalStorage();
-  
+  // Call the function to log localStorage contents
+  logLocalStorage();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -59,7 +61,7 @@ logLocalStorage();
           <div className="flex-grow lg:flex lg:flex-row gap-8 py-8 items-start justify-center">
             <div className="flex lg:w-1/4 mb-8">
               {/* @ts-ignore */}
-            <ProfileData profileData={user} />
+              <ProfileData profileData={user} />
             </div>
             <div className="bg-white p-4 rounded-xl flex-col lg:w-3/4 w-full">
               <h2 className="text-5xl font-black mb-0">History</h2>
@@ -67,7 +69,10 @@ logLocalStorage();
               <OrdersList />
             </div>
           </div>
-        </div>
+        </div>{" "}
+        <button className="bg-blue py-2 rounded-lg text-white font-semibold m-2">
+          <Link to={"/profile/orderform"}>Place New Order</Link>
+        </button>
         <Footer />
       </div>
     </>

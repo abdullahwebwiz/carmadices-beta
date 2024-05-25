@@ -16,17 +16,22 @@ import ProviderPayouts from './screens/provider/Payouts';
 import PartnerPage from './screens/Partner';
 import DealersPage from './screens/Dealers';
 import ThankYouPage from './screens/ThankYouPage';
+import Order from './screens/user/orderform';
+import PayTest from './screens/PayTest';
+
 
 const App: React.FC = () => {
   return (
     <Router>
       <AuthProvider>
         <Routes>
+        <Route path="/*" element={<LandingPage />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/thank-you" element={<ThankYouPage />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/profile/orderform" element={<Order />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/admin/orders" element={<Orders />} />
           <Route path="/admin/customers" element={<CustomersPage />} />
@@ -37,6 +42,7 @@ const App: React.FC = () => {
           <Route path="/provider/payouts" element={<ProviderPayouts/>} />
           <Route path="/partner" element={<PartnerPage/>} />
           <Route path="/dealers" element={<DealersPage/>} />
+          <Route path="/paytest" element={<PayTest/>} />
         </Routes>
       </AuthProvider>
     </Router>

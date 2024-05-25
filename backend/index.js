@@ -17,7 +17,9 @@ const requireAdmin = require("./middleware/requireAdmin");
 const requireProvider = require("./middleware/requireProvider.js");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const path = require("path");
-
+const stripe = require("stripe")(
+  "sk_test_51PK2e4AbZoRkoGyHVolD3L3XyR1tSSbspkYgyEsXAhd2yRFcNZaP6ngs5Uq5Yk2g5cPLUPkyLf0uuw3ZGgzFg2KE00Z2XSfJS3"
+);
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -60,6 +62,30 @@ app.get("/calculate-distance", async (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("Hello from Node API");
+});
+app.post("/paytest", async(req, res) => {
+  console.log('hila dala na');
+  const lineItems = [
+    {
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: 'Generic Product',
+        },
+        unit_amount: 1000, // Amount in cents, adjust as needed
+      },
+      quantity: 1, // Quantity of the product
+    }
+  ];
+  console.log(req.body);
+let session = await stripe.checkout.sessions.create({
+  payment_method_types:['card'],
+  mode:'payment',
+  success_url:'http://localhost:5173/partner',
+  cancel_url:'http://localhost:5173/dealers',
+  line_items: lineItems,
+});
+  res.json({msg: 'good job',id: session.id});
 });
 
 // Serve static images

@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import OrderForm from '../components/landingPage/OrderForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import OrderScheduler from '../components/landingPage/OrderScheduler';
 // import Calendar from '../components/landingPage/Calendar';
 
 const stripePromise = loadStripe('pk_test_51P1Dr3DuQ2xq97QExKde8eaXqU2BKm7L8wGvTErtdYT4DjQ8hkBm3XWVJXifxInEfn8vZKowNLXyhHk0OsNj5bZa00pUN7qLv6');

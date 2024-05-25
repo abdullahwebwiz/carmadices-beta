@@ -3,6 +3,8 @@ import axios from "axios";
 import HeaderMenu from "../components/HeaderMenu";
 import Footer from "../components/Footer";
 import { validateInput } from "../utils/validation"; // Import the validation function
+import { useAuth } from "../contexts/authContext";
+import { Navigate } from "react-router-dom";
 // import { Navigate } from "react-router-dom";
 
 interface RegisterFormData {
@@ -22,7 +24,7 @@ const Register: React.FC = () => {
   const [message, setMessage] = useState<string>("");
   const [formErrors, setFormErrors] = useState<Record<string, string>>({}); // State for form errors
   const signupEndpoint = "https://carmadices-beta-11pk.vercel.app/user/signup";
-
+  const { login, loginError, user } = useAuth(); 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -75,6 +77,12 @@ const Register: React.FC = () => {
       }
     }
   };
+
+
+  if (user) {
+    return <Navigate to="/profile" replace={true} />;
+  }
+
   return (
     <>
       <div className="flex flex-col h-screen">

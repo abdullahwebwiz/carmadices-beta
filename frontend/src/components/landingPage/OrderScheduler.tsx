@@ -28,7 +28,7 @@ const customStyles = {
   },
 };
 
-const OrderScheduler = ({ selectedProvider, headlightsCount, onTimeSlotSelect, setHeadlightsCount, selectedDateTimeSlot, setSelectedDateTimeSlot,  }) => {
+const OrderScheduler: React.FC = ({ selectedProvider, headlightsCount, onTimeSlotSelect, setHeadlightsCount, selectedDateTimeSlot, setSelectedDateTimeSlot,  }) => {
 
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(selectedDateTimeSlot?.timeSlot ?? null);
   const [selectedDate, setSelectedDate] = useState(new Date());

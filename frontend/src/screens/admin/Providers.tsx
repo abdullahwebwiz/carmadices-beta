@@ -219,6 +219,7 @@ const ProvidersPage = () => {
                                         ))
                                     ) : (
                                         <tr>
+                                            {/* @ts-ignore */}
                                             <td colSpan ="7" className="px-6 py-4 text-center">No providers found.</td>
                                         </tr>
                                     )}
