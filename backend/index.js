@@ -81,8 +81,8 @@ app.post("/paytest", async(req, res) => {
 let session = await stripe.checkout.sessions.create({
   payment_method_types:['card'],
   mode:'payment',
-  success_url:'http://localhost:5173/partner',
-  cancel_url:'http://localhost:5173/dealers',
+  success_url:'http://localhost:5173/successcheckout',
+  cancel_url:'http://localhost:5173/failedcheckout',
   line_items: lineItems,
 });
   res.json({msg: 'good job',id: session.id});
