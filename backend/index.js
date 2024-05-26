@@ -91,8 +91,8 @@ app.post("/paytest", async (req, res) => {
     let session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: "http://localhost:5173/successcheckout",
-      cancel_url: "http://localhost:5173/failedcheckout",
+      success_url: "https://carmadices-beta.vercel.app/successcheckout",
+      cancel_url: "https://carmadices-beta.vercel.app/failedcheckout",
       line_items: lineItems,
     });
     res.json({ msg: "success", id: session.id });
