@@ -12,7 +12,7 @@ const SuccessCheckout: React.FC = () => {
             "Content-Type": "application/json",
           },
           body: localStorage.getItem("formData"),
-        }
+        }            
       );
       let result = await response.json();
       console.log(result);
