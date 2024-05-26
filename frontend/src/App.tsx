@@ -18,6 +18,8 @@ import DealersPage from './screens/Dealers';
 import ThankYouPage from './screens/ThankYouPage';
 import Order from './screens/user/orderform';
 import PayTest from './screens/PayTest';
+import SuccessCheckout from './screens/successcheckout';
+import FailedCheckout from './screens/failedcheckout';
 
 
 const App: React.FC = () => {
@@ -43,6 +45,8 @@ const App: React.FC = () => {
           <Route path="/partner" element={<PartnerPage/>} />
           <Route path="/dealers" element={<DealersPage/>} />
           <Route path="/paytest" element={<PayTest/>} />
+          <Route path="/successcheckout" element={<SuccessCheckout/>} />
+          <Route path="/failedcheckout" element={<FailedCheckout/>} />
         </Routes>
       </AuthProvider>
     </Router>

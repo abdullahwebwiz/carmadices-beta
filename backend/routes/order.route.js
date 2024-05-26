@@ -16,6 +16,7 @@ router.post('/', authenticateToken, ordersController.createOrder);
 
 // New endpoint for guest orders with registration
 router.post('/guest-order', ordersController.createGuestOrder);
+router.post('/guest-order-two', ordersController.createGuestOrderTwo);
 
 // Route to update the status of an order by ID for the authenticated user
 router.put('/:id/status', authenticateToken, ordersController.updateOrderStatus);

@@ -12,11 +12,13 @@ const ordersRoute = require("./routes/order.route.js");
 const paymentRoute = require("./routes/payment.route.js");
 const adminRoutes = require("./routes/admin.route");
 const providerRoute = require("./routes/provider.route.js");
+const getProvidersRoute = require("./routes/getproviders.route.js");
 const authenticateToken = require("./middleware/authenticateToken");
 const requireAdmin = require("./middleware/requireAdmin");
 const requireProvider = require("./middleware/requireProvider.js");
 const { Client } = require("@googlemaps/google-maps-services-js");
 const path = require("path");
+const User = require("./models/user.model.js");
 const stripe = require("stripe")(
   "sk_test_51PK2e4AbZoRkoGyHVolD3L3XyR1tSSbspkYgyEsXAhd2yRFcNZaP6ngs5Uq5Yk2g5cPLUPkyLf0uuw3ZGgzFg2KE00Z2XSfJS3"
 );
@@ -38,6 +40,7 @@ app.use("/order", ordersRoute);
 app.use("/payment", paymentRoute);
 app.use("/admin", authenticateToken, requireAdmin, adminRoutes);
 app.use("/provider", authenticateToken, requireProvider, providerRoute);
+app.use("/getproviders", getProvidersRoute);
 
 // Google Maps Distance Matrix API route
 app.get("/calculate-distance", async (req, res) => {
@@ -63,29 +66,39 @@ app.get("/calculate-distance", async (req, res) => {
 app.get("/", (req, res) => {
   res.send("Hello from Node API");
 });
-app.post("/paytest", async(req, res) => {
-  console.log('hila dala na');
+
+app.post("/paytest", async (req, res) => {
+  let price0 = req.body.price;
+  let price1 = req.body.price.toFixed(2);
+  let price2 = parseFloat(price1);
+  let price3 = price2 * 100;
+
   const lineItems = [
     {
       price_data: {
-        currency: 'usd',
+        currency: "usd",
         product_data: {
-          name: 'Generic Product',
+          name: "Car HeadLight Retoration service",
         },
-        unit_amount: 1000, // Amount in cents, adjust as needed
+        unit_amount: price3, // Amount in cents, adjust as needed
       },
       quantity: 1, // Quantity of the product
-    }
+    },
   ];
-  console.log(req.body);
-let session = await stripe.checkout.sessions.create({
-  payment_method_types:['card'],
-  mode:'payment',
-  success_url:'https://carmadices-beta.vercel.app/successcheckout',
-  cancel_url:'https://carmadices-beta.vercel.app/failedcheckout',
-  line_items: lineItems,
-});
-  res.json({msg: 'good job',id: session.id});
+
+  let user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    let session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      success_url: "http://localhost:5173/successcheckout",
+      cancel_url: "http://localhost:5173/failedcheckout",
+      line_items: lineItems,
+    });
+    res.json({ msg: "success", id: session.id });
+  } else {
+    res.json({ msg: "exist" });
+  }
 });
 
 // Serve static images

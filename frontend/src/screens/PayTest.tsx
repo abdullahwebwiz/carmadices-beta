@@ -1,26 +1,27 @@
-import Button from "@mui/material/Button";
+import {Button} from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
-
 const PayTest: React.FC = () => {
   let handleCheckout = async () => {
+    console.log('lol 1');
     let stripe: any = await loadStripe(
       "pk_test_51PK2e4AbZoRkoGyHXWL0GQxTRlT6J1SJMiWw37DkKvVfzE8qLv0TKJLdm5yzdyd2txMYvIg5bOICHZrk1xvlcR0U00GyNPL9qT"
     );
 
-    let response: any = await fetch("http://localhost:4000/paytest", {
+    let response: any = await fetch("https://carmadices-beta-11pk.vercel.app/paytest", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ msg: "successify" }),
     });
-    
+
     let session = await response.json();
+    console.log('lol 2');
     console.log(session.id);
-    let result = stripe.redirectToCheckout({
+    stripe.redirectToCheckout({
       sessionId: session.id,
     });
-    alert();
+    console.log('lol 3');
   };
 
   return (

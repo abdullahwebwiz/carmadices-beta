@@ -10,5 +10,5 @@ router.get('/data', authenticateToken, requireProvider, dataAdmin); // Pass data
 
 // Fetch orders assigned to providerId
 router.get('/assigned', authenticateToken, requireProvider, getOrdersWithUserInformation);
-
 module.exports = router;
+
