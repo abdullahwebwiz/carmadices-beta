@@ -6,7 +6,7 @@ const OrderList = ({ orders, setOrders }:any) => {
     const [formData, setFormData]:any = useState({});
     const [imagePreviews, setImagePreviews] :any= useState({});
     const fileInputRefs :any= useRef({});
-    const serverBaseURL = 'https://www.carmadices-beta-11pk.vercel.app/';
+    const serverBaseURL = 'https://carmadices-beta-11pk.vercel.app/';
     const placeholderImage = '/home/carmedic/htdocs/www.mycarmedics.com/carmedics/frontend/src/assets/300x300-placeholder.jpg';
     const [statusFilter, setStatusFilter] = useState('All'); // Filter state
 

@@ -6,74 +6,141 @@ const { upload } = require("../middleware/multer");
 const mongoose = require("mongoose"); // Add this line to import mongoose
 
 // Create a new order
+// exports.createOrder = async (req, res) => {
+//   try {
+//     const {
+//       userId,
+//       address,
+//       orderType,
+//       totalPrice,
+//       status,
+//       serviceType,
+//       serviceProvider,
+//       scheduledDate,
+//       paymentStatus,
+//       isTint,
+//       tintColor,
+//       startHour,
+//       endHour,
+//       serviceLocation,
+//     } = req.body;
+
+//     console.log("Received order data:", req.body);
+
+//     // Extract the date property from the scheduledDate object
+//     const {
+//       date,
+//       timeSlot: { startTime },
+//     } = scheduledDate;
+
+//     // Convert the date to a Date object
+//     const scheduledDateObject = new Date(date);
+
+//     // Combine date and start time to get the scheduled date and time
+//     scheduledDateObject.setHours(startTime);
+
+//     // Create a new order instance with adminCheck included
+//     const order = new Order({
+//       userId,
+//       orderType,
+//       items: [],
+//       totalPrice,
+//       status,
+//       serviceType,
+//       paymentStatus,
+//       shippingAddress: address,
+//       isTint,
+//       tintColor,
+//       adminCheck: false,
+//       timeSlot: {
+//         startHour,
+//         endHour,
+//         serviceProvider,
+//         scheduledDate: scheduledDateObject, // Assign the combined date and time
+//       },
+//       serviceLocation, // Include serviceLocation field
+//       beforeImagePath: "uploads/placeholder.png", // Set default before image path
+//       afterImagePath: "uploads/placeholder.png", // Set default after image path
+//     });
+
+//     // Save the order
+//     await order.save();
+
+//     res
+//       .status(201)
+//       .json({ message: "Order created successfully", orderDetails: order });
+//   } catch (error) {
+//     console.error("Error creating order:", error);
+//     res
+//       .status(500)
+//       .json({ error: "Internal server error", message: error.message });
+//   }
+// };
+
 exports.createOrder = async (req, res) => {
+  console.log('yol');
   try {
     const {
       userId,
-      address,
-      orderType,
-      totalPrice,
-      status,
-      serviceType,
-      serviceProvider,
       scheduledDate,
-      paymentStatus,
-      isTint,
-      tintColor,
       startHour,
       endHour,
+      status,
+      paymentStatus,
       serviceLocation,
+      serviceProvider,
+      orderType,
+      totalPrice,
+      serviceType,
+      isTint,
+      tintColor,
+      address,
+      providerId,
+      price,
     } = req.body;
-
-    console.log("Received order data:", req.body);
-
-    // Extract the date property from the scheduledDate object
-    const {
-      date,
-      timeSlot: { startTime },
-    } = scheduledDate;
-
-    // Convert the date to a Date object
-    const scheduledDateObject = new Date(date);
-
-    // Combine date and start time to get the scheduled date and time
-    scheduledDateObject.setHours(startTime);
-
-    // Create a new order instance with adminCheck included
+    let scheduledDateTwo = new Date(scheduledDate);
+    console.log(req.body);
+    // console.log(scheduledDateTwo);
     const order = new Order({
       userId,
       orderType,
       items: [],
-      totalPrice,
+      totalPrice: price,
       status,
       serviceType,
-      paymentStatus,
+      paymentStatus: "Completed",
       shippingAddress: address,
       isTint,
       tintColor,
       adminCheck: false,
       timeSlot: {
-        startHour,
-        endHour,
-        serviceProvider,
-        scheduledDate: scheduledDateObject, // Assign the combined date and time
+        startHour: parseInt(startHour.split(":")[0]),
+        endHour: parseInt(endHour.split(":")[0]),
+        serviceProvider: providerId,
+        scheduledDate: scheduledDateTwo.toISOString(),
       },
       serviceLocation, // Include serviceLocation field
       beforeImagePath: "uploads/placeholder.png", // Set default before image path
       afterImagePath: "uploads/placeholder.png", // Set default after image path
     });
 
-    // Save the order
     await order.save();
+    console.log("Order created:", order);
 
-    res
-      .status(201)
-      .json({ message: "Order created successfully", orderDetails: order });
+    res.status(201).json({
+      msg: "success",
+      message: "Order created successfully",
+      // orderDetails: order,
+    });
   } catch (error) {
     console.error("Error creating order:", error);
     res
       .status(500)
-      .json({ error: "Internal server error", message: error.message });
+      .json({
+        msg: "failed",
+        error: "Internal server error",
+        message: error.message,
+      });
   }
 };
 
@@ -130,7 +197,7 @@ exports.createGuestOrderTwo = async (req, res) => {
       adminCheck: false,
       timeSlot: {
         startHour: parseInt(startHour.split(":")[0]),
-        endHour: parseInt(endHour.split(":")[0]), 
+        endHour: parseInt(endHour.split(":")[0]),
         serviceProvider: providerId,
         scheduledDate: scheduledDateTwo.toISOString(),
       },
@@ -158,7 +225,7 @@ exports.createGuestOrderTwo = async (req, res) => {
         "Saturday",
       ][scheduledDateTwo.getDay()],
       startHour: parseInt(startHour.split(":")[0]),
-      endHour: parseInt(endHour.split(":")[0]), 
+      endHour: parseInt(endHour.split(":")[0]),
     };
 
     provider.timeSlots.push(slot);
@@ -172,7 +239,7 @@ exports.createGuestOrderTwo = async (req, res) => {
     });
   } catch (error) {
     console.error("Error processing guest order:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "I-S error he" });
   }
 };
 

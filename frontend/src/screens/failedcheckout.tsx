@@ -1,6 +1,10 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const failedCheckout: React.FC = () => {
+  useEffect(() => {
+    localStorage.removeItem('formData');
+  }, []);
   return (
     <>
       <div

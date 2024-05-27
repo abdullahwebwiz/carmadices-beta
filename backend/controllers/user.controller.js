@@ -199,21 +199,25 @@ const loginUser = (req, res) => {
         });
       });
   }
-};
+}; 
 
-const fetchUser = async (req, res) => {
+const fetchUser = async (req, res) => { 
   try {
     const userId = req.user._id; // Get the user ID from the validated token
     const user = await User.findById(userId).select("-password"); // Exclude password from the query result
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
+    console.log(user);
     res.status(200).json({ status: "SUCCESS", user });
   } catch (error) {
     console.error("Error fetching user profile:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+
 
 // Fetch all users
 const fetchAllUsers = async (req, res) => {
@@ -288,13 +292,11 @@ const updateUser = async (req, res) => {
     if (updatedUser) {
       const { password, isVerified, __v, ...userWithoutSensitiveData } =
         updatedUser.toObject();
-      return res
-        .status(200)
-        .json({
-          status: "SUCCESS",
-          message: "Profile updated successfully",
-          user: userWithoutSensitiveData,
-        });
+      return res.status(200).json({
+        status: "SUCCESS",
+        message: "Profile updated successfully",
+        user: userWithoutSensitiveData,
+      });
     } else {
       return res
         .status(404)
@@ -323,11 +325,9 @@ const userExists = async (req, res) => {
     return res.json({ exists });
   } catch (error) {
     console.error("Error checking user existence:", error);
-    return res
-      .status(500)
-      .json({
-        message: "Internal server error while checking user existence.",
-      });
+    return res.status(500).json({
+      message: "Internal server error while checking user existence.",
+    });
   }
 };
 
@@ -450,12 +450,10 @@ const reassignProvider = async (req, res) => {
     const updatedOrder = await order.save();
     console.log("Order updated with new provider ID:", updatedOrder);
 
-    return res
-      .status(200)
-      .json({
-        message: "Provider for order changed successfully",
-        order: updatedOrder,
-      });
+    return res.status(200).json({
+      message: "Provider for order changed successfully",
+      order: updatedOrder,
+    });
   } catch (error) {
     console.error("Error changing provider for order:", error);
     res.status(500).json({ error: "Internal server error" });

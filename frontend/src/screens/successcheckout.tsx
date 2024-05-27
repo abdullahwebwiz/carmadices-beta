@@ -1,24 +1,30 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 
 const SuccessCheckout: React.FC = () => {
+  const { user, userToken } = useAuth();
+
   useEffect(() => {
     let handleSubmit = async () => {
       let response = await fetch(
-        "https://carmadices-beta-11pk.vercel.app/order/guest-order-two",
+        "https://carmadices-beta-11pk.vercel.app/order" + (user ? "/" : "/guest-order-two"),
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: userToken ? `Bearer ${userToken}` : ``,
           },
           body: localStorage.getItem("formData"),
-        }            
+        }
       );
       let result = await response.json();
       console.log(result);
     };
-    handleSubmit();
-  }, []);
+    setTimeout(()=>{
+      handleSubmit();
+    },1000)
+  }, [user]);
 
   return (
     <>

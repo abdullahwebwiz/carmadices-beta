@@ -8,7 +8,8 @@ const MapComponent = ({
   setCalculatedPrice,
   serviceLocation,
   parentAddress,
-}:any) => {
+  userData,
+}: any) => {
   const [customerAddress, setCustomerAddress] = useState("");
   const [distance, setDistance] = useState(0);
   const [price, setPrice] = useState(0);
@@ -16,6 +17,20 @@ const MapComponent = ({
   const autocompleteRef = useRef(null);
   const officeAddress = "3901 NE 5th Terrace SUITE 4, Oakland Park, Florida";
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (userData) {
+        try {
+          console.log(userData);
+          setCustomerAddress(userData?.shippingAddress);
+          parentAddress(userData?.shippingAddress);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    };
+    fetchData();
+  }, [userData]);
   // Function to calculate distance, time, and price
   const calculateDistanceAndTime = async (address) => {
     try {
@@ -100,6 +115,7 @@ const MapComponent = ({
         }}
       >
         <input
+          disabled={userData ? true : false}
           type="text"
           placeholder="Enter your address"
           className="w-full py-2 px-4 rounded-lg border text-center"

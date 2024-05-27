@@ -38,15 +38,15 @@ const customStyles = {
 
 ReactPixel.init("7582804658445660");
 
-const API_BASE_URL = "https://www.carmadices-beta-11pk.vercel.app/";
+const API_BASE_URL = "https://carmadices-beta-11pk.vercel.app/";
 
 const instance = axios.create({
   baseURL: API_BASE_URL,
 });
 
-const HeadlightRestorationForm = () => {
+const OrderForm = ({ userData }: any) => {
   const navigate = useNavigate();
-  const { user, userToken } = useAuth();
+  const { user, userToken }: any = useAuth();
   const stripe = useStripe();
   const elements = useElements();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,7 +80,7 @@ const HeadlightRestorationForm = () => {
     serviceLocation: "Garage",
     providerId: "",
   });
-
+  const token = localStorage.getItem("userToken");
   // Providers state
   const [providers, setProviders] = useState([]);
   const [selectedProvider, setSelectedProvider] = useState("");
@@ -94,8 +94,28 @@ const HeadlightRestorationForm = () => {
   const [unavailableSlots, setUnavailableSlots] = useState([]);
 
   useEffect(() => {
-    console.log(formData.scheduledDate);
-  }, [formData.scheduledDate]);
+    const fetchData = async () => {
+      if (userData) {
+        try {
+          setFormData((prevState) => ({
+            ...prevState,
+            name: userData.firstName,
+            phone: userData.phone,
+            email: userData.email,
+            userId: userData._id,
+            address: userData.shippingAddress,
+          }));
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    };
+    fetchData();
+  }, [userData]);
+
+  useEffect(() => {
+    console.log(formData.address);
+  }, [formData.address]);
   // After opening modal, render time slots
   const checkSlotAvailability = (hour, duration) => {
     // Find the index of the next slot
@@ -470,26 +490,27 @@ const HeadlightRestorationForm = () => {
     if (
       formData.name &&
       formData.email &&
-      formData.password &&
+      (userData || formData.password) &&
       formData.phone &&
       formData.providerId &&
-      formData.address
+      (userData || formData.address)
     ) {
       let localFormData = JSON.stringify({ ...formData, price: totalPrice });
       localStorage.setItem("formData", localFormData);
-
       let stripe: any = await loadStripe(
         "pk_test_51PK2e4AbZoRkoGyHXWL0GQxTRlT6J1SJMiWw37DkKvVfzE8qLv0TKJLdm5yzdyd2txMYvIg5bOICHZrk1xvlcR0U00GyNPL9qT"
       );
-
       let response: any = await fetch("https://carmadices-beta-11pk.vercel.app/paytest", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, price: totalPrice }),
+        body: JSON.stringify({
+          ...formData,
+          price: totalPrice,
+          ignoreMail: userData ? true : false,
+        }),
       });
-
       let session = await response.json();
       console.log(session);
       if (session.msg == "exist") {
@@ -505,6 +526,7 @@ const HeadlightRestorationForm = () => {
       alert("Provide all required data");
     }
   };
+
   return (
     <div>
       {!formSubmitted ? (
@@ -513,6 +535,7 @@ const HeadlightRestorationForm = () => {
             {/* Basic Inputs */}
             <p>First Name</p>
             <input
+              disabled={userData ? true : false}
               type="text"
               placeholder="First Name"
               value={formData.name}
@@ -524,6 +547,7 @@ const HeadlightRestorationForm = () => {
             />
             <p>Email</p>
             <input
+              disabled={userData ? true : false}
               type="email"
               placeholder="Email"
               value={formData.email}
@@ -535,6 +559,7 @@ const HeadlightRestorationForm = () => {
             />
             <p>Phone Number</p>
             <input
+              disabled={userData ? true : false}
               type="tel"
               placeholder="Phone"
               value={formData.phone}
@@ -544,17 +569,24 @@ const HeadlightRestorationForm = () => {
               className="w-full px-4 py-2 rounded-lg mb-0 text-center appearance-none border border-gray-300"
               required
             />
-            <p>Set up your password</p>
-            <input
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-              className="w-full px-4 py-2 rounded-lg mb-0 text-center appearance-none border border-gray-300"
-              required
-            />
+            {userData ? (
+              ""
+            ) : (
+              <>
+                {" "}
+                <p>Set up your password</p>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
+                  className="w-full px-4 py-2 rounded-lg mb-0 text-center appearance-none border border-gray-300"
+                  required
+                />
+              </>
+            )}
 
             <p>Select Service Location</p>
             <select
@@ -641,11 +673,14 @@ const HeadlightRestorationForm = () => {
             {/* Google API Autocomplete Address Input */}
             <p>Your Address</p>
             <MapComponent
+              userData={userData}
               setAddress={setCustomerAddress}
               setCalculatedPrice={setCalculatedPrice}
               serviceLocation={serviceLocation}
               customerAddress={customerAddress}
               parentAddress={(e: any) => {
+                console.log("qwerty");
+                console.log(e);
                 setFormData((prevState) => ({
                   ...prevState,
                   address: e,
@@ -759,4 +794,4 @@ const HeadlightRestorationForm = () => {
   );
 };
 
-export default HeadlightRestorationForm;
+export default OrderForm;

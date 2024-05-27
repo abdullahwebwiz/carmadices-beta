@@ -87,7 +87,7 @@ app.post("/paytest", async (req, res) => {
   ];
 
   let user = await User.findOne({ email: req.body.email });
-  if (!user) {
+  if (!user || req.body?.ignoreMail) {
     let session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
