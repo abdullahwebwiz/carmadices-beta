@@ -113,7 +113,7 @@ mongoose
   .then(() => {
     console.log("Connected to database!");
     // Create HTTPS server
-    const httpsOptions = {
+    const httpsOptions = { 
       // key: fs.readFileSync('/carmedics/carmedics/backend/cert/www.mycarmedics.com.key'),
       // cert: fs.readFileSync('/carmedics/carmedics/backend/cert/www.mycarmedics.com.crt'),
       key: fs.readFileSync(

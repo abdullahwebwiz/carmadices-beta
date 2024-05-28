@@ -75,11 +75,12 @@ const OrderForm = ({ userData }: any) => {
     serviceType: "Headlight Restoration",
     status: "Pending",
     userId: user ? user._id : "",
-    startHour: null,
-    endHour: null,
+    startHour: "0:00",
+    endHour: "0:00",
     serviceLocation: "Garage",
     providerId: "",
   });
+
   const token = localStorage.getItem("userToken");
   // Providers state
   const [providers, setProviders] = useState([]);
@@ -117,7 +118,7 @@ const OrderForm = ({ userData }: any) => {
     console.log(formData.address);
   }, [formData.address]);
   // After opening modal, render time slots
-  const checkSlotAvailability = (hour, duration) => {
+  const checkSlotAvailability: any = (hour, duration) => {
     // Find the index of the next slot
     const nextSlotIndex = hour - 9; // Assuming the first slot starts at 9 AM
 
@@ -345,12 +346,12 @@ const OrderForm = ({ userData }: any) => {
         console.error("Error fetching available slots:", error);
       }
     };
-
     fetchAvailableSlots();
   }, [formData.scheduledDate, selectedProvider, formData.headlightsCount]);
 
   // Handle decrementing the headlights count
-  const handleHeadlightsDecrement = () => {
+  const handleHeadlightsDecrement = (e) => {
+    e.preventDefault();
     if (formData.headlightsCount > 1) {
       setFormData((prevState) => ({
         ...prevState,
@@ -361,38 +362,40 @@ const OrderForm = ({ userData }: any) => {
 
   // Handle incrementing the headlights count
   const handleHeadlightsIncrement = () => {
-    setFormData((prevState) => {
-      const newHeadlightsCount = prevState.headlightsCount + 1;
-      let endHour = prevState.endHour;
-
-      // Check if the next slot is available for each additional headlight
-      for (let i = 1; i < newHeadlightsCount; i++) {
-        const nextSlotAvailable = checkSlotAvailability(
-          parseInt(prevState.startHour.split(":")[0]) + i,
-          1
-        );
-        if (!nextSlotAvailable) {
-          // Reduce the headlightsCount if the next slot is not available
-          return {
-            ...prevState,
-            headlightsCount: i,
-            endHour: `${parseInt(prevState.startHour.split(":")[0]) + i}:00`,
-          };
+    if (formData.startHour.split(":")[0] != "0") {
+      setFormData((prevState: any) => {
+        const newHeadlightsCount = prevState.headlightsCount + 1;
+        let endHour = prevState.endHour;
+        // Check if the next slot is available for each additional headlight
+        for (let i = 1; i < newHeadlightsCount; i++) {
+          const nextSlotAvailable = checkSlotAvailability(
+            parseInt(prevState.startHour.split(":")[0]) + i,
+            1
+          );
+          if (!nextSlotAvailable) {
+            // Reduce the headlightsCount if the next slot is not available
+            return {
+              ...prevState,
+              headlightsCount: i,
+              endHour: `${parseInt(prevState.startHour.split(":")[0]) + i}:00`,
+            };
+          }
         }
-      }
 
-      // Update endHour based on the newHeadlightsCount
-      if (newHeadlightsCount > 3 && (newHeadlightsCount - 1) % 4 === 0) {
-        const hour = parseInt(prevState.endHour.split(":")[0]); // Extract the hour part
-        endHour = `${hour + 1}:00`;
-      }
-
-      return {
-        ...prevState,
-        headlightsCount: newHeadlightsCount,
-        endHour,
-      };
-    });
+        // Update endHour based on the newHeadlightsCount
+        if (newHeadlightsCount > 3 && (newHeadlightsCount - 1) % 4 === 0) {
+          const hour = parseInt(prevState.endHour.split(":")[0]); // Extract the hour part
+          endHour = `${hour + 1}:00`;
+        }
+        return {
+          ...prevState,
+          headlightsCount: newHeadlightsCount,
+          endHour,
+        };
+      });
+    }else{
+      alert('Kindly First Select Provider and available time slots.');
+    }
   };
 
   // Tint logic

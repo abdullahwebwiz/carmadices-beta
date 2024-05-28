@@ -183,7 +183,7 @@ const loginUser = (req, res) => {
             }
           })
           .catch((err) => {
-            console.error("Error finding user:", err);
+            console.error("Error finding user:");
             console.error(err);
             res.json({
               status: "FAILED",
