@@ -1,64 +1,46 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/authContext";
-
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const SuccessCheckout: React.FC = () => {
-  const { user, userToken } = useAuth();
-
+  let navigate = useNavigate();
+  let userToken = localStorage.getItem("userToken");
+  let data = localStorage.getItem("formData");
+  let [x, setX] = useState(false);
   useEffect(() => {
     let handleSubmit = async () => {
-      let response = await fetch(
-        "https://carmadices-beta-11pk.vercel.app/order" + (user ? "/" : "/guest-order-two"),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: userToken ? `Bearer ${userToken}` : ``,
-          },
-          body: localStorage.getItem("formData"),
+      if (data) {
+        let response = await fetch(
+          "https://carmadices-beta-11pk.vercel.app/order" +
+            (userToken ? "/" : "/guest-order-two"),
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: userToken ? `Bearer ${userToken}` : ``,
+            },
+            body: data,
+          }
+        );
+        let result = await response.json();
+        console.log(result);
+        if (result.msg == "success") {
+          localStorage.removeItem("formData");
+          alert("Payment Recevied Successfully");
+          navigate("/");
+        } else {
+          alert("Payment Failed");
+          navigate("/failedcheckout");
         }
-      );
-      let result = await response.json();
-      console.log(result);
+      } else {
+        navigate("/");
+      }
     };
-    setTimeout(()=>{
-      handleSubmit();
-    },1000)
-  }, [user]);
+    handleSubmit();
+    setX(true);
+  }, []);
 
-  return (
-    <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {" "}
-        <div style={{ fontSize: "50px", fontWeight: "900", margin: "20px" }}>
-          Thank you for Choosing
-        </div>
-        <div
-          style={{
-            fontSize: "20px",
-            fontWeight: "400",
-            margin: "20px",
-            fontFamily: "cursive",
-            color: "#008900",
-          }}
-        >
-          Payment successfully recevied
-        </div>
-        <img
-          src="/mycarmedics-logo.svg"
-          style={{ width: "200px", margin: "20px" }}
-        />
-        <Link to={"/"}>Back To Home</Link>
-      </div>
-    </>
-  );
+  if (x) {
+    return null;
+  }
 };
 
 export default SuccessCheckout;

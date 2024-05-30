@@ -335,7 +335,6 @@ const userExists = async (req, res) => {
 const isProviderAvailable = async (providerId, date) => {
   try {
     console.log("Checking availability for providerId:", providerId);
-
     const startDate = new Date(date);
     startDate.setUTCHours(0, 0, 0, 0); // Start of day in UTC
     const endDate = new Date(startDate);

@@ -85,7 +85,7 @@ const OrderForm = ({ userData }: any) => {
   // Providers state
   const [providers, setProviders] = useState([]);
   const [selectedProvider, setSelectedProvider] = useState("");
-
+  const [proceed, setproceed] = useState(true);
   // Address and distance state
   const [serviceLocation, setServiceLocation] = useState("Garage");
   const [customerAddress, setCustomerAddress] = useState("");
@@ -93,6 +93,15 @@ const OrderForm = ({ userData }: any) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [availableSlots, setAvailableSlots] = useState([]);
   const [unavailableSlots, setUnavailableSlots] = useState([]);
+  const [availableSlotsInBoolen, setAvailableSlotsInBoolen] = useState([]);
+  const [slotIndex, setSlotIndex] = useState(null);
+  const [newEndHour, setNewEndHour] = useState("11:00");
+  useEffect(() => {
+    // console.log(formData.scheduledDate);
+    let y = formData.scheduledDate;
+    let x = new Date(y);
+    console.log(x.getDay());
+  }, [formData.scheduledDate]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -174,12 +183,10 @@ const OrderForm = ({ userData }: any) => {
           },
         }
       );
-
       // Convert the availability data to an array of boolean values
       const availabilityArray = response.data.availability.map(
         (slot) => !!slot
       );
-
       // Store the available slots in state
       const slots = availabilityArray.reduce(
         (acc, available, index) => {
@@ -189,7 +196,6 @@ const OrderForm = ({ userData }: any) => {
         },
         { available: [], unavailable: [] }
       );
-
       setAvailableSlots(slots.available);
       setUnavailableSlots(slots.unavailable); // Assume you have a state variable for unavailable slots
 
@@ -222,7 +228,7 @@ const OrderForm = ({ userData }: any) => {
         slots.push(
           <button
             key={hour}
-            onClick={() => handleTimeSlotSelect(hour)}
+            onClick={() => handleTimeSlotSelect(hour, index)}
             className={`py-2 px-4 m-1 rounded-lg ${
               isAvailable
                 ? "bg-green-600 text-white"
@@ -249,9 +255,9 @@ const OrderForm = ({ userData }: any) => {
       }
     }
 
-    if (!slotsAvailable) {
-      return <p className="font-bold">No available slots for this date.</p>;
-    }
+    // if (!slotsAvailable) {
+    //   return <p className="font-bold">No available slots for this date.</p>;
+    // }
 
     return slots.length > 0 ? (
       slots
@@ -340,7 +346,7 @@ const OrderForm = ({ userData }: any) => {
             },
           }
         );
-        setAvailableSlots(response.data.availability);
+        setAvailableSlotsInBoolen(response.data.availability);
         console.log(response.data.availability);
       } catch (error) {
         console.error("Error fetching available slots:", error);
@@ -349,54 +355,158 @@ const OrderForm = ({ userData }: any) => {
     fetchAvailableSlots();
   }, [formData.scheduledDate, selectedProvider, formData.headlightsCount]);
 
+  // const fetchAvailableSlots: any = async () => {
+  //   if (!formData.scheduledDate || !selectedProvider) return;
+  //   const formattedDate = formData.scheduledDate.toISOString().slice(0, 10);
+  //   try {
+  //     const response = await axios.get(
+  //       `https://carmadices-beta-11pk.vercel.app/user/availability`,
+  //       {
+  //         params: {
+  //           providerId: selectedProvider,
+  //           date: formattedDate,
+  //           headlightsCount: formData.headlightsCount,
+  //         },
+  //       }
+  //     );
+  //     setAvailableSlots(response.data.availability);
+  //     console.log(response.data.availability);
+  //   } catch (error) {
+  //     console.error("Error fetching available slots:", error);
+  //   }
+  // };
+  // fetchAvailableSlots();
+
   // Handle decrementing the headlights count
-  const handleHeadlightsDecrement = (e) => {
-    e.preventDefault();
-    if (formData.headlightsCount > 1) {
+
+  // Handle incrementing the headlights count
+  // const handleHeadlightsIncrement = () => {
+  //   if (formData.startHour.split(":")[0] != "0") {
+  //     setFormData((prevState: any) => {
+  //       const newHeadlightsCount = prevState.headlightsCount + 1;
+  //       let endHour = prevState.endHour;
+  //       // Check if the next slot is available for each additional headlight
+  //       for (let i = 1; i < newHeadlightsCount; i++) {
+  //         const nextSlotAvailable = checkSlotAvailability(
+  //           parseInt(prevState.startHour.split(":")[0]) + i,
+  //           1
+  //         );
+  //         if (!nextSlotAvailable) {
+  //           // Reduce the headlightsCount if the next slot is not available
+  //           return {
+  //             ...prevState,
+  //             headlightsCount: i,
+  //             endHour: `${parseInt(prevState.startHour.split(":")[0]) + i}:00`,
+  //           };
+  //         }
+  //       }
+
+  //       // Update endHour based on the newHeadlightsCount
+  //       if (newHeadlightsCount > 3 && (newHeadlightsCount - 1) % 4 === 0) {
+  //         const hour = parseInt(prevState.endHour.split(":")[0]); // Extract the hour part
+  //         endHour = `${hour + 1}:00`;
+  //       }
+  //       return {
+  //         ...prevState,
+  //         headlightsCount: newHeadlightsCount,
+  //         endHour,
+  //       };
+  //     });
+  //   } else {
+  //     alert("Kindly First Select Provider and available time slots.");
+  //   }
+  // };
+  useEffect(() => {
+    console.log(formData.endHour);
+  }, [formData.endHour]);
+
+  let calculateSum = () => {
+    let sum = 0;
+    let index = slotIndex;
+
+    while (
+      index < availableSlotsInBoolen.length &&
+      availableSlotsInBoolen[index] === true
+    ) {
+      sum++;
+      index++;
+    }
+
+    return sum * 4;
+  };
+
+  const handleHeadlightsIncrement = () => {
+    let newEndHour = formData.endHour;
+    if (formData.startHour.split(":")[0] != "0") {
+      let [hours, minutes]: any = newEndHour.split(":");
+      if (formData.headlightsCount < calculateSum()) {
+        hours = parseInt(hours);
+        minutes = parseInt(minutes);
+        let newTime = new Date();
+        newTime.setHours(hours);
+        newTime.setMinutes(minutes + 15);
+        let newTimeString = newTime.toLocaleTimeString("en-US", {
+          hour12: false,
+        });
+        setFormData((prevState) => ({
+          ...prevState,
+          endHour: newTimeString,
+        }));
+        setFormData((prevState) => ({
+          ...prevState,
+          headlightsCount: prevState.headlightsCount + 1,
+        }));
+      }
+    } else {
+      alert("Kindly First Select Provider and available time slots.");
+    }
+  };
+
+  const handleHeadlightsDecrement = () => {
+    let newEndHour = formData.endHour;
+    if (
+      formData.startHour.split(":")[0] != "0" &&
+      formData.headlightsCount > 1
+    ) {
+      let [hours, minutes]: any = newEndHour.split(":");
+      hours = parseInt(hours);
+      minutes = parseInt(minutes);
+      let newTime = new Date();
+      newTime.setHours(hours);
+      newTime.setMinutes(minutes - 15);
+      let newTimeString = newTime.toLocaleTimeString("en-US", {
+        hour12: false,
+      });
+      setFormData((prevState) => ({
+        ...prevState,
+        endHour: newTimeString,
+      }));
+
       setFormData((prevState) => ({
         ...prevState,
         headlightsCount: prevState.headlightsCount - 1,
       }));
+
+      // if (formData.headlightsCount < calculateSum()) {
+      //   setFormData((prevState) => ({
+      //     ...prevState,
+      //     headlightsCount: prevState.headlightsCount + 1,
+      //   }));
+      // }
+    } else {
+      alert("Kindly First Select Provider and available time slots.");
     }
   };
 
-  // Handle incrementing the headlights count
-  const handleHeadlightsIncrement = () => {
-    if (formData.startHour.split(":")[0] != "0") {
-      setFormData((prevState: any) => {
-        const newHeadlightsCount = prevState.headlightsCount + 1;
-        let endHour = prevState.endHour;
-        // Check if the next slot is available for each additional headlight
-        for (let i = 1; i < newHeadlightsCount; i++) {
-          const nextSlotAvailable = checkSlotAvailability(
-            parseInt(prevState.startHour.split(":")[0]) + i,
-            1
-          );
-          if (!nextSlotAvailable) {
-            // Reduce the headlightsCount if the next slot is not available
-            return {
-              ...prevState,
-              headlightsCount: i,
-              endHour: `${parseInt(prevState.startHour.split(":")[0]) + i}:00`,
-            };
-          }
-        }
-
-        // Update endHour based on the newHeadlightsCount
-        if (newHeadlightsCount > 3 && (newHeadlightsCount - 1) % 4 === 0) {
-          const hour = parseInt(prevState.endHour.split(":")[0]); // Extract the hour part
-          endHour = `${hour + 1}:00`;
-        }
-        return {
-          ...prevState,
-          headlightsCount: newHeadlightsCount,
-          endHour,
-        };
-      });
-    }else{
-      alert('Kindly First Select Provider and available time slots.');
-    }
-  };
+  // const handleHeadlightsDecrement = (e) => {
+  //   e.preventDefault();
+  //   if (formData.headlightsCount > 1) {
+  //     setFormData((prevState) => ({
+  //       ...prevState,
+  //       headlightsCount: prevState.headlightsCount - 1,
+  //     }));
+  //   }
+  // };
 
   // Tint logic
   const handleTintCheckboxChange = (event) => {
@@ -418,13 +528,19 @@ const OrderForm = ({ userData }: any) => {
 
   // Handle initial date change and open modal for time slots
   const handleDateChange = (date) => {
+    // if (date.getDay() != 0 && date.getDay() != 6) {
     setSelectedDate(date);
-    console.log(date);
+    console.log(date.getDay());
     setIsModalOpen(true);
     setFormData({ ...formData, scheduledDate: date });
+    // } else {
+    //   alert("Saturday Adn Sunday are off");
+    // }
   };
 
-  const handleTimeSlotSelect = (hour) => {
+  const handleTimeSlotSelect = (hour, index) => {
+    console.log(index);
+    setSlotIndex(index);
     const startHour = `${hour}:00`;
     const endHour = `${hour + 1}:00`;
     setFormData({ ...formData, startHour, endHour });
@@ -491,6 +607,7 @@ const OrderForm = ({ userData }: any) => {
 
   let handleCheckout = async () => {
     if (
+      proceed &&
       formData.name &&
       formData.email &&
       (userData || formData.password) &&
@@ -498,6 +615,7 @@ const OrderForm = ({ userData }: any) => {
       formData.providerId &&
       (userData || formData.address)
     ) {
+      setproceed(false);
       let localFormData = JSON.stringify({ ...formData, price: totalPrice });
       localStorage.setItem("formData", localFormData);
       let stripe: any = await loadStripe(
